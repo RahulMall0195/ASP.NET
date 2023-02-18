@@ -1,0 +1,1967 @@
+________________________________________________BALSGXFAMIS.cs__________________________________________________
+using System;
+using System.Data;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+/// <summary>
+/// Summary description for BALSGXFAMIS
+/// </summary>
+public class BALSGXFAMIS
+{
+	public BALSGXFAMIS()
+	{
+		//
+		// TODO: Add constructor logic here
+		//
+	}
+
+    public DataTable FA_0114052013(string compCode,string region, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_0114052013(compCode,region, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+    // Created By : Sunil Kumar Singh Date: 24/02/2014
+    public DataTable FA_V24022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_V24022014(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 06/03/2014
+    public DataTable FA_B28022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_B28022014(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 06/03/2014
+    public DataTable FA_C28022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_C28022014(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 06/03/2014
+    public DataTable FA_E28022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_E28022014(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+     //Created By Dubey On 03/07/2013
+    public DataTable FA_DayBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_DayBookReport(compCode, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    //Created By Dubey On 05/07/2013
+    public DataTable FA_CashBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_CashBookReport(compCode, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+     //Created By Dubey On 05/07/2013
+    public DataTable FA_BankBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_BankBookReport(compCode, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+     //Created By Dubey On 06/07/2013
+    public DataTable FA_JournalBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_JournalBookReport(compCode, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    //Created By Dubey On 08/07/2013
+    public DataTable FA_CashBankStatementReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_CashBankStatementReport(compCode, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        } 
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+     //Created By Dubey On 09/07/2013
+    public DataTable FA_ChequeStatementReport(string compCode, string branchCode, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_ChequeStatementReport(compCode, branchCode,fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    //Created By Dubey On 10/07/2013
+    public DataTable FA_TrailBalance_Report(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string fromDate, string toDate, string region)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_TrailBalance_Report(compCode, branchCode, lgrGruopCode, lgrCode, fromDate, toDate, region);
+        } 
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+      //Created By Kathera On 23/11/2013
+    public DataTable FA_AssetGroupWiseMIS(string compCode, string Region, string branchCode, string fromDate, string toDate, double lgrGruopCode, double lgrCode, string JTrans)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_AssetGroupWiseMIS( compCode,  Region,  branchCode,  fromDate,  toDate,  lgrGruopCode,  lgrCode,  JTrans);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 26/04/2014
+    // Sales Register
+    public DataTable FA_SalesRegister(string fromDate, string toDate, string region, string branchCode,string prod)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_SalesRegister(fromDate, toDate, region, branchCode, prod);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+ // Created By : Pramesh Kumar Vishwakarma Date: 02/05/2014
+    // Expense Datails
+    public DataTable FA_ExpenseDetails(string compCode, string branchCode, string mainGrp,string subGrp,string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_ExpenseDetails(compCode, branchCode, mainGrp, subGrp, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+    // Created By : Pramesh Kumar Vishwakarma Date: 05/05/2014
+    // Expense Voucher
+    public DataTable FA_ExpenseVoucher(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_ExpenseVoucher(compCode, branchCode, mainGrp, subGrp, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+// Created By : Pramesh Kumar Vishwakarma Date: 07/05/2014
+    // Purchase Register
+    public DataTable FA_SearchPurchaseDetails(string compCode, string regionCode, string branchCode, string productCode, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_SearchPurchaseDetails(compCode, regionCode, branchCode, productCode,fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Add By : Sunil Kumar Singh
+    // Date   : 09/06/2014
+
+    public DataTable FA_0114052013V_01(string compCode, string region, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_0114052013V_01(compCode, region, branchCode, lgrGruopCode, lgrCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+
+    // Created By : Sunil Kumar Singh Date: 14/01/2015
+    // Revenue Datails
+    public DataTable FA_RevenueDetails(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_RevenueDetails(compCode, branchCode, mainGrp, subGrp, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 14/01/2015
+    // Lib Datails
+    public DataTable FA_LibDetails(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_LibDetails(compCode, branchCode, mainGrp, subGrp, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 03/04/2015
+    public DataTable FA_C28022014_V2(string FolioNo, string fromDate, string toDate)
+    {
+
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_C28022014_V2(FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    public DataSet Company_Tds_Book(string type, string payToId, string fromDate, string toDate, string brCode)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.Company_Tds_Book(type, payToId, fromDate, toDate, brCode);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+
+    //---- Added By    : Ashish Kalsarpe --- Date : 14/10/2022 --
+    //---- Description : Sales Register A
+
+    public DataTable FA_Sales_Reg(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Sales_Reg(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    public DataTable FA_Sales_Reg_Dtls(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate, string mth)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Sales_Reg_Dtls(compCode, region, branchCode, FolioNo, fromDate, toDate, mth);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    public DataSet FA_Sales_Voucher_Dtls(string jid)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Sales_Voucher_Dtls(jid);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+
+    public DataSet FA_GET_Voucher_Dtls(string jid)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_GET_Voucher_Dtls(jid);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+    public DataTable FA_Vendor_Ledger(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Vendor_Ledger(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+       
+    }
+
+      //----- Added By : Ashish Kalsarpe -- Date : 22/11/2022---
+    public DataTable FA_Monthly_Ledger_Reg(string compCode, string region,  string branchCode, string FolioNo, string fromDate, string toDate, int gid)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Monthly_Ledger_Reg(compCode, region,branchCode, FolioNo,fromDate,toDate,gid);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+    public DataSet FA_Monthly_Ledger_Dtls(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate, int lid)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Monthly_Ledger_Dtls(compCode, region, branchCode, FolioNo, fromDate, toDate, lid);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    public DataTable FA_Vendor_Register(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate, int type)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Vendor_Register(compCode, region, branchCode, FolioNo, fromDate, toDate, type);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    public DataTable FA_Customer_Ledger_V2(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_Customer_Ledger_V2(compCode, region, branchCode, FolioNo, fromDate, toDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+    public DataTable FA_GST_Report(string BRANCH_CODE, string FROM_DATE, string TDate)
+    {
+        DALSGXFAMIS rpt = new DALSGXFAMIS();
+        try
+        {
+            return rpt.FA_GST_Report(BRANCH_CODE, FROM_DATE, TDate);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            rpt = null;
+        }
+    }
+
+
+}
+
+_________________________________________DALSGXFAMIS.cs_________________________________________________________
+using System;
+using System.Data;
+using System.Configuration;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using System.Data.SqlClient;
+
+/// <summary>
+/// Summary description for DALSGXFAMIS
+/// </summary>
+public class DALSGXFAMIS
+{
+    string connStr = ConfigurationManager.ConnectionStrings["DBConnSGX"].ToString();
+    public DALSGXFAMIS()
+	{
+		//
+		// TODO: Add constructor logic here
+		//
+	}
+
+    public DataTable FA_0114052013(string compCode,string region, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_0114052013", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_0114052013");
+            return dSet.Tables["tbl_FA_0114052013"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+    // Created By : Sunil Kumar Singh Date: 24/02/2014
+    public DataTable FA_V24022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_V24022014", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_V24022014");
+            return dSet.Tables["tbl_FA_V24022014"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 06/03/2014
+    public DataTable FA_E28022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_E28022014", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_E28022014");
+            return dSet.Tables["tbl_FA_E28022014"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 06/03/2014
+    public DataTable FA_B28022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_B28022014", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_B28022014");
+            return dSet.Tables["tbl_FA_B28022014"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 06/03/2014
+    public DataTable FA_C28022014(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_C28022014", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_C28022014");
+            return dSet.Tables["tbl_FA_C28022014"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //Created By Dubey On 03/07/2013
+    public DataTable FA_DayBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_DayBookReport", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_DayBookReport");
+            return dSet.Tables["tbl_FA_DayBookReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //Created By Dubey On 05/07/2013
+    public DataTable FA_CashBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_CashBookReport", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_usp_FA_CashBookReport");
+            return dSet.Tables["tbl_usp_FA_CashBookReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //Created By Dubey On 05/07/2013
+    public DataTable FA_BankBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    { 
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_BankBookReport", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 180;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_usp_FA_BankBookReport");
+            return dSet.Tables["tbl_usp_FA_BankBookReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+
+    //Created By Dubey On 06/07/2013
+    public DataTable FA_JournalBookReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    { 
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_JournalBookReport", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_JournalBookReport");
+            return dSet.Tables["tbl_FA_JournalBookReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //Created By Dubey On 08/07/2013
+    public DataTable FA_CashBankStatementReport(string compCode, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    { 
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_CashBankStatementReport", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_CashBankStatementReport");
+            return dSet.Tables["tbl_FA_CashBankStatementReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //Created By Dubey On 09/07/2013
+    public DataTable FA_ChequeStatementReport(string compCode, string branchCode,string fromDate, string toDate)
+    {  
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_ChequeStatementReport", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_ChequeStatementReport");
+            return dSet.Tables["tbl_FA_ChequeStatementReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //Created By Dubey On 10/07/2013
+    public DataTable FA_TrailBalance_Report(string compCode, string branchCode, double lgrGruopCode, double lgrCode,string fromDate, string toDate,string region)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_TrailBalance_Report", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@Region", region);
+
+            dAd.Fill(dSet, "tbl_FA_TrailBalance_Report");
+            return dSet.Tables["tbl_FA_TrailBalance_Report"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+    //Created By Kathera On 23/11/2013
+    public DataTable FA_AssetGroupWiseMIS(string compCode, string Region, string branchCode, string fromDate, string toDate, double lgrGruopCode, double lgrCode,string JTrans)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_AssetGroupWiseMIS", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@Region", Region);
+            dAd.SelectCommand.Parameters.AddWithValue("@BranchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@fdate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@tdate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgid", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lid", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@JTrans", JTrans);
+
+            dAd.Fill(dSet, "tbl_FA_JournalBookReport");
+            return dSet.Tables["tbl_FA_JournalBookReport"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 26/04/2014
+    // Sales Register
+    public DataTable FA_SalesRegister(string fromDate, string toDate, string region, string branchCode, string prod)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_SalesRegister", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@fDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@eDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@brCd", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@prod", prod);
+
+            dAd.Fill(dSet, "tbl_FA_SalesRegister");
+            return dSet.Tables["tbl_FA_SalesRegister"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+ // Created By : Pramesh Kumar Vishwakarma Date: 02/05/2014
+    // Expense Datails
+    public DataTable FA_ExpenseDetails(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        using (SqlDataAdapter sda = new SqlDataAdapter("usp_search_FAExpenseDetails", conn))
+        {
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            using (DataSet dSet = new DataSet())
+            {
+                sda.SelectCommand.Parameters.AddWithValue("@CompanyCode", compCode);
+                sda.SelectCommand.Parameters.AddWithValue("@BranchCode", branchCode);
+                sda.SelectCommand.Parameters.AddWithValue("@MainGrp", mainGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@SubGrp", subGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@FromDate", fromDate);
+                sda.SelectCommand.Parameters.AddWithValue("@ToDate", toDate);
+
+                sda.Fill(dSet, "tbl_FA_ExpenseDetails");
+                return dSet.Tables["tbl_FA_ExpenseDetails"];
+            }
+        }
+    }
+
+    // Created By : Pramesh Kumar Vishwakarma Date: 02/05/2014
+    // Expense Voucher
+    public DataTable FA_ExpenseVoucher(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        using (SqlDataAdapter sda = new SqlDataAdapter("usp_search_FAExpenseVoucher", conn))
+        {
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            using (DataSet dSet = new DataSet())
+            {
+                sda.SelectCommand.Parameters.AddWithValue("@CompanyCode", compCode);
+                sda.SelectCommand.Parameters.AddWithValue("@BranchCode", branchCode);
+                sda.SelectCommand.Parameters.AddWithValue("@MainGrp", mainGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@SubGrp", subGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@FromDate", fromDate);
+                sda.SelectCommand.Parameters.AddWithValue("@ToDate", toDate);
+
+                sda.Fill(dSet, "tbl_FA_ExpenseVoucher");
+                return dSet.Tables["tbl_FA_ExpenseVoucher"];
+            }
+        }
+    }
+
+// Created By : Pramesh Kumar Vishwakarma Date: 07/05/2014
+    // Purchase Register
+    public DataTable FA_SearchPurchaseDetails(string compCode, string regionCode, string branchCode, string productCode, string fromDate, string toDate)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        using (SqlDataAdapter sda = new SqlDataAdapter("usp_FA_SearchPurchaseDetails", conn))
+        {
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            using (DataSet dSet = new DataSet())
+            {
+                sda.SelectCommand.Parameters.AddWithValue("@CompanyCode", compCode);
+                sda.SelectCommand.Parameters.AddWithValue("@RegionCode", regionCode);
+                sda.SelectCommand.Parameters.AddWithValue("@BranchCode", branchCode);
+                sda.SelectCommand.Parameters.AddWithValue("@ProductCode", productCode);
+                sda.SelectCommand.Parameters.AddWithValue("@FromDate", fromDate);
+                sda.SelectCommand.Parameters.AddWithValue("@ToDate", toDate);
+
+                sda.Fill(dSet, "tbl_FA_PurchaseDetails");
+                return dSet.Tables["tbl_FA_PurchaseDetails"];
+            }
+        }
+    }
+
+
+    // Add By : Sunil Kumar Singh
+    // Date   : 09/06/2014
+
+    public DataTable FA_0114052013V_01(string compCode, string region, string branchCode, double lgrGruopCode, double lgrCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_0114052013V_01", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrGruopCode", lgrGruopCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@lgrCode", lgrCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_0114052013V_01");
+            return dSet.Tables["tbl_FA_0114052013V_01"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 14/01/2015
+    // Revenue Datails
+    public DataTable FA_RevenueDetails(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        using (SqlDataAdapter sda = new SqlDataAdapter("usp_search_FARevenuDetails", conn))
+        {
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            using (DataSet dSet = new DataSet())
+            {
+                sda.SelectCommand.Parameters.AddWithValue("@CompanyCode", compCode);
+                sda.SelectCommand.Parameters.AddWithValue("@BranchCode", branchCode);
+                sda.SelectCommand.Parameters.AddWithValue("@MainGrp", mainGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@SubGrp", subGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@FromDate", fromDate);
+                sda.SelectCommand.Parameters.AddWithValue("@ToDate", toDate);
+
+                sda.Fill(dSet, "tbl_FA_ExpenseDetails");
+                return dSet.Tables["tbl_FA_ExpenseDetails"];
+            }
+        }
+    }
+
+    // Created By : Sunil Kumar Singh Date: 14/01/2015
+    // Revenue Datails
+    public DataTable FA_LibDetails(string compCode, string branchCode, string mainGrp, string subGrp, string fromDate, string toDate)
+    {
+        using (SqlConnection conn = new SqlConnection(connStr))
+        using (SqlDataAdapter sda = new SqlDataAdapter("usp_search_FALiabDetails", conn))
+        {
+            sda.SelectCommand.CommandType = CommandType.StoredProcedure;
+            using (DataSet dSet = new DataSet())
+            {
+                sda.SelectCommand.Parameters.AddWithValue("@CompanyCode", compCode);
+                sda.SelectCommand.Parameters.AddWithValue("@BranchCode", branchCode);
+                sda.SelectCommand.Parameters.AddWithValue("@MainGrp", mainGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@SubGrp", subGrp);
+                sda.SelectCommand.Parameters.AddWithValue("@FromDate", fromDate);
+                sda.SelectCommand.Parameters.AddWithValue("@ToDate", toDate);
+
+                sda.Fill(dSet, "tbl_FA_ExpenseDetails");
+                return dSet.Tables["tbl_FA_ExpenseDetails"];
+            }
+        }
+    }
+
+
+    // Created By : Sunil Kumar Singh Date: 03/04/2015
+    public DataTable FA_C28022014_V2(string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_CustLedger", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@custCode", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@eDate", toDate);
+            dAd.Fill(dSet, "tbl_FA_C28022014_V2");
+            return dSet.Tables["tbl_FA_C28022014_V2"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+
+
+
+
+    //Added By : Ashish Kalsarpe, Date : 04-07-2021, Desc: Company Tds Book
+    public DataSet Company_Tds_Book(string type, string payToId, string fromDate, string toDate, string brCode)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_Rpt_Company_Tds_Book", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@PayToTy", type);
+            dAd.SelectCommand.Parameters.AddWithValue("@PayToId", payToId);
+            dAd.SelectCommand.Parameters.AddWithValue("@fDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@eDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@JBranch_Code", brCode);
+
+
+            dAd.Fill(dSet, "Company_Tds_Book");
+            return dSet;
+
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+    //---- Added By    : Ashish Kalsarpe --- Date : 14/10/2022 --
+    //---- Description : Sales Register A
+    public DataTable FA_Sales_Reg(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_rpt_Sales_Register", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "FA_Sales_Register");
+            return dSet.Tables["FA_Sales_Register"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public DataTable FA_Sales_Reg_Dtls(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate, string mth)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_rpt_Sales_Register_Dtls", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@mth", mth);
+            dAd.Fill(dSet, "FA_Sales_Register_Dtls");
+            return dSet.Tables["FA_Sales_Register_Dtls"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public DataSet FA_Sales_Voucher_Dtls(string jid)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_rpt_Sales_Voucher_Dtls", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@jid", jid);
+
+            dAd.Fill(dSet, "FA_Sales_Voucher_Dtls");
+            return dSet;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+    //------ Added By : Ashish Kalsarpe --- Date : 17/10/2022
+    public DataSet FA_GET_Voucher_Dtls(string jid)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_Ledger_Voucher_Dtls", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@jid", jid);
+            dAd.Fill(dSet, "FA_Ledger_Voucher_Dtls");
+            return dSet;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+
+    public DataTable FA_Vendor_Ledger(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("Usp_FA_Vendor_Ledger", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 180;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+
+            dAd.Fill(dSet, "tbl_FA_V24022014");
+            return dSet.Tables["tbl_FA_V24022014"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+
+    }
+
+
+    //----- Added By : Ashish Kalsarpe -- Date : 22/11/2022---
+
+    public DataTable FA_Monthly_Ledger_Reg(string compCode, string region,  string branchCode, string FolioNo, string fromDate, string toDate, int gid)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_rpt_Monthly_Ledger_Register", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            //dAd.SelectCommand.Parameters.AddWithValue("@vertical", Vertical);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@Gid", gid);
+
+            dAd.Fill(dSet, "FA_Monthly_Ledger_Gid_Register");
+            return dSet.Tables["FA_Monthly_Ledger_Gid_Register"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public DataSet FA_Monthly_Ledger_Dtls(string compCode, string region,  string branchCode, string FolioNo, string fromDate, string toDate, int lid)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_rpt_Monthly_Ledger_Dtls", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            //dAd.SelectCommand.Parameters.AddWithValue("@vertical", Vertical);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@lid", lid);
+
+            dAd.Fill(dSet, "FA_Monthly_Ledger_Dtls");
+            return dSet;
+
+
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    //---- Added By    : Ashish Kalsarpe --- Date : 13/12/2022--
+    //---- Description : Vendor Register.
+
+
+    //---- Added By    : Ashish Kalsarpe --- Date : 13/12/2022--
+    //---- Description : Vendor Register.
+
+    public DataTable FA_Vendor_Register(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate, int type)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("USP_Get_Vendor_Register", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@vcode", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@typ", type);
+
+            dAd.Fill(dSet, "FA_Vendor_Register");
+            return dSet.Tables["FA_Vendor_Register"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+    public DataTable FA_Customer_Ledger_V2(string compCode, string region, string branchCode, string FolioNo, string fromDate, string toDate)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_FA_Cusromer_LedgerV2", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 120;
+        DataSet dSet = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@compCode", compCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@region", region);
+            dAd.SelectCommand.Parameters.AddWithValue("@branchCode", branchCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FolioNo", FolioNo);
+            dAd.SelectCommand.Parameters.AddWithValue("@fromDate", fromDate);
+            dAd.SelectCommand.Parameters.AddWithValue("@toDate", toDate);        
+
+            dAd.Fill(dSet, "FA_CustomeLedger_V2");
+            return dSet.Tables["FA_CustomeLedger_V2"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+
+    public DataTable FA_GST_Report(string BRANCH_CODE, string FROM_DATE, string TO_DATE)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = null;
+        if (BRANCH_CODE == "BR00000009")
+        {
+           dAd = new SqlDataAdapter("USP_GET_GST_REPORT_Anakapalli", conn);
+        }
+
+        if (BRANCH_CODE == "BR00000011")
+        {
+           dAd = new SqlDataAdapter("USP_GET_GST_REPORT_MUMBAI", conn);
+        }
+
+        if (BRANCH_CODE == "BR00000003")
+        {
+           dAd = new SqlDataAdapter("USP_GET_GST_REPORT_BEAWAR", conn);
+        }
+        if (BRANCH_CODE == "BR00000006")
+        {
+           dAd = new SqlDataAdapter("USP_GET_GST_REPORT_VIZAG", conn);
+        }
+
+
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        dAd.SelectCommand.CommandTimeout = 180;
+        DataSet dSet = new DataSet();
+        try
+        {        
+            dAd.SelectCommand.Parameters.AddWithValue("@BRANCH_CODE", BRANCH_CODE);
+            dAd.SelectCommand.Parameters.AddWithValue("@FROM_DATE", FROM_DATE);
+            dAd.SelectCommand.Parameters.AddWithValue("@TO_DATE", TO_DATE);
+            dAd.Fill(dSet, "tbl_FA_V24022014");
+            return dSet.Tables["tbl_FA_V24022014"];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            dSet.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+
+}
+
+___________________________________________GSTReport.aspx.cs_______________________________________________________
+using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using Microsoft.Reporting.WebForms;
+//using Microsoft.ReportingServices.ReportRendering;
+
+public partial class FA_MIS_GST_Report : System.Web.UI.Page
+{
+    DALSGXFAMIS comm = new DALSGXFAMIS();
+    BALSGXFAMIS mis = new BALSGXFAMIS();
+    Message msg = new Message();
+
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            CascadingDDLComapny.ContextKey = Session["Employee_Code"].ToString();
+            CascadingDDLArea.ContextKey = Session["Employee_Code"].ToString();
+            CascadingDDLBranch.ContextKey = Session["Employee_Code"].ToString();
+        }
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        FillReport();
+    }
+
+    private void FillReport()
+    {
+      try
+        {
+            DataTable dt = mis.FA_GST_Report(Convert.ToString(DDLBranch.SelectedValue), txtFDate.Text.Trim(), txtTDate.Text);
+
+            if (dt.Rows.Count > 0)
+            {
+                ReportViewer1.Visible = true;
+
+                ReportViewer1.LocalReport.DataSources.Clear();
+                ReportViewer1.LocalReport.ReportPath = "FA/MIS/GST_Report.rdlc";
+                ReportViewer1.LocalReport.DataSources.Add(new ReportDataSource("FAMSREG_FA_GST_Report", dt));
+                ReportParameter Cmp = new ReportParameter("Cmp", DDLCompany.SelectedItem.Text);
+                ReportParameter Rgn = new ReportParameter("Region", DDLArea.SelectedItem.Text);
+                ReportParameter Br = new ReportParameter("Branch", DDLBranch.SelectedItem.Text);
+                ReportParameter FDate = new ReportParameter("FDate", txtFDate.Text);
+                ReportParameter TDate = new ReportParameter("TDate", txtTDate.Text);
+
+                ReportViewer1.LocalReport.SetParameters(new ReportParameter[] { Cmp, Rgn, Br, FDate, TDate });
+                ReportViewer1.LocalReport.Refresh();
+                tblPara.Style.Add("display", "none");
+                tblrpt.Style.Add("display", "block");
+                tblPara.Visible = false;
+                tblrpt.Visible = true;
+            }
+            else
+            {
+                ReportViewer1.Visible = false;
+                ErrorContainer.Visible = true;
+                msg.ShowMessage("Data not available in report.", null, ErrorContainer, MyMessage, "Warning");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+    }
+}
+
+____________________________________________GSTReport.aspx______________________________________________________
+<%@ Page Language="C#" MasterPageFile="~/HRM/HRM.master"  EnableEventValidation="false" AutoEventWireup="true" CodeFile="GST_Report.aspx.cs" Inherits="FA_MIS_GST_Report" Title="Untitled Page" %>
+
+<%@ Register Assembly="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+    Namespace="Microsoft.Reporting.WebForms" TagPrefix="rsweb" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="SGG" %> 
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+    <link href="../../css/Report.css" rel="stylesheet" type="text/css" />
+    <script src="../../../Scripts/rptPrint.js" type="text/javascript"></script>
+    <script src="../../Jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+         <script type="text/javascript">
+       function CheckDatesMinLessMax(source, arg) {                  
+            
+            var day, month, year;
+            var fromdate = document.getElementById('<%=txtFDate.ClientID %>');
+            var todate = document.getElementById('<%=txtTDate.ClientID %>');
+            day = fromdate.value.split("/")[0];
+            month = fromdate.value.split("/")[1];
+            year = fromdate.value.split("/")[2];
+            var fromdate1 = month + '/' + day + '/' + year;
+            day = todate.value.split("/")[0];
+            month = todate.value.split("/")[1];
+            year = todate.value.split("/")[2];
+            var todate1 = month + '/' + day + '/' + year;
+            var myDate1 = new Date(fromdate1);
+            var myDate2 = new Date(todate1);         
+                                       
+        }
+
+        function CheckDatesMonthMax(source, arg) {
+            var day, month, year;            
+            var fromdate = document.getElementById('<%=txtFDate.ClientID %>');
+            day = fromdate.value.split("/")[0];
+            month = fromdate.value.split("/")[1];
+            year = fromdate.value.split("/")[2];
+            var fromdate1 = month + '/' + day + '/' + year;
+            var myDate1 = new Date(fromdate1);
+            var dt = new Date();
+            month = dt.getMonth();
+            day = dt.getDate();
+            year = dt.getFullYear();
+            var cdate = month + '/' + 1 + '/' + year;
+            var cDate1 = new Date(cdate);    
+        }
+
+        function checkDate(sender, args) {
+            var dt = new Date();
+            var day = dt.getDate();
+            var month = dt.getMonth();
+            var year = dt.getFullYear();
+            var dt = new Date(year, month, day);
+            var _Predt = new Date(year, month, day);    
+        }
+    </script>  
+ 
+    <center>
+     <table width="100%" style="overflow: scroll;">
+        <tr>
+            <td>
+                <asp:Panel ID="ErrorContainer" runat="server" CssClass="EmptyError">
+                    <asp:Label ID="MyMessage" runat="server" Font-Size="10pt"></asp:Label>
+                </asp:Panel>
+            </td>
+        </tr>
+    </table>
+        <table id="tblPara" runat="server" cellpadding="2" cellspacing="2" class="newRptTable"
+            style="table-layout: auto; border: thick inset maroon;">
+         
+            <tr>
+                <td class="Left" style="width: 13%">
+                    Company
+                </td>
+                <td class="Right" style="width: 20%">
+                    <asp:DropDownList ID="DDLCompany" runat="server" CssClass="newRpt_dd"></asp:DropDownList>
+
+                    <SGG:cascadingdropdown ID="CascadingDDLComapny" runat="server" TargetControlID="DDLCompany"
+                        PromptValue="0" Category="Company" LoadingText="Loading Company.." ServiceMethod="BindCompanyDetails"
+                        ServicePath="CascadingDropdownMIS.asmx" UseContextKey="true" 
+                        Enabled="True">
+                    </SGG:cascadingdropdown>
+                    <asp:RequiredFieldValidator ID="RFVDDLCompany" runat="server" ValidationGroup="vin1"
+                        Display="Dynamic" ControlToValidate="DDLCompany" ErrorMessage="Select Company"
+                        ToolTip="Select Company" SetFocusOnError="True" InitialValue="0">*</asp:RequiredFieldValidator>
+                </td>
+                <td class="Left" style="width: 13%">
+                    Region
+                </td>
+                <td class="Right" style="width: 20%">
+                    <asp:DropDownList ID="DDLArea" runat="server" CssClass="newRpt_dd">
+                        <asp:ListItem Value="0">Select Region</asp:ListItem>
+                    </asp:DropDownList>
+                    <SGG:CascadingDropDown ID="CascadingDDLArea" runat="server" TargetControlID="DDLArea"
+                        ParentControlID="DDLCompany" PromptValue="0" Category="Area" LoadingText="Loading Area.."
+                        ServiceMethod="BindAreaDetails" ServicePath="CascadingDropdownMIS.asmx" UseContextKey="true">
+                    </SGG:CascadingDropDown>
+                    <asp:RequiredFieldValidator Display="Dynamic" ID="RequiredDDLArea" runat="server"
+                        ValidationGroup="vin1" ControlToValidate="DDLArea" ErrorMessage="Select Area."
+                        ToolTip="Select Area." SetFocusOnError="True" InitialValue="0" Enabled="true">*</asp:RequiredFieldValidator>
+                </td>
+                <td class="Left" style="width: 13%">
+                    Branch
+                </td>
+                <td class="style1">
+                    <asp:DropDownList ID="DDLBranch" runat="server" CssClass="newRpt_dd">
+                        <asp:ListItem Value="0">Select Branch</asp:ListItem>
+                    </asp:DropDownList>
+                    <SGG:CascadingDropDown ID="CascadingDDLBranch" runat="server" TargetControlID="DDLBranch"
+                        ParentControlID="DDLArea" PromptValue="0" Category="Branch" LoadingText="Loading Branch.."
+                        ServiceMethod="BindBranchDetails" ServicePath="CascadingDropdownMIS.asmx" UseContextKey="true">
+                    </SGG:CascadingDropDown>
+                    <asp:RequiredFieldValidator ID="RequiredDDLBranch" runat="server" ValidationGroup="vin1"
+                        Display="Dynamic" ControlToValidate="DDLBranch" ErrorMessage="Select Branch"
+                        ToolTip="Select Branch" SetFocusOnError="True" InitialValue="0" Enabled="true">*</asp:RequiredFieldValidator>
+                </td>
+            </tr>
+            <tr>
+                <td class="Left">
+                    From Date
+                </td>
+                <td class="Right">
+                    <asp:TextBox  ID="txtFDate" runat="server" CssClass="newRpt_date" Style="width:80px;"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator8" runat="server" ValidationGroup="vin1"
+                        Display="Dynamic" ControlToValidate="txtFDate" ErrorMessage="Select From Date."
+                        ToolTip="Select From Date." Text="*" Enabled="true"></asp:RequiredFieldValidator>
+                    <SGG:MaskedEditExtender ID="txtFDate_MaskedEditExtender" runat="server" Enabled="True"
+                        Mask="99/99/9999" MaskType="Date" TargetControlID="txtFDate">
+                    </SGG:MaskedEditExtender>
+                    <SGG:CalendarExtender ID="txtFDate_CalendarExtender" runat="server" Enabled="True"
+                        Format="dd/MM/yyyy" TargetControlID="txtFDate" OnClientDateSelectionChanged="checkDate">
+                    </SGG:CalendarExtender>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="txtFDate"
+                        ErrorMessage="*" SetFocusOnError="True" ToolTip="Enter From Date in (DD/MM/YYYY) Format."
+                        ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                        ValidationGroup="vin1" Display="Dynamic"></asp:RegularExpressionValidator>
+                    <asp:CustomValidator ID="CustomValidator2" runat="server" ErrorMessage="Please Enter From Date."
+                        ToolTip="Please Enter From Date." ClientValidationFunction="CheckDatesMonthMax"
+                        Display="Dynamic" ValidationGroup="vin1" SetFocusOnError="True" ControlToValidate="txtFDate">*</asp:CustomValidator>
+                </td>
+                <td class="Left">
+                    To Date
+                </td>
+                <td class="Right">
+                    <asp:TextBox  ID="txtTDate" runat="server" CssClass="newRpt_date" Style="width:80px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ValidationGroup="vin1"
+                        Display="Dynamic" ControlToValidate="txtTDate" ErrorMessage="Select To Date."
+                        ToolTip="Select To Date." Text="*" Enabled="true"></asp:RequiredFieldValidator>
+                    <SGG:MaskedEditExtender ID="Maskededitextender1" runat="server" Enabled="True" Mask="99/99/9999"
+                        MaskType="Date" TargetControlID="txtTDate">
+                    </SGG:MaskedEditExtender>
+                    <SGG:CalendarExtender ID="Calendarextender1" runat="server" Enabled="True" Format="dd/MM/yyyy"
+                        TargetControlID="txtTDate" OnClientDateSelectionChanged="checkDate">
+                    </SGG:CalendarExtender>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txtTDate"
+                        ErrorMessage="*" SetFocusOnError="True" ToolTip="Enter From Date in (DD/MM/YYYY) Format."
+                        ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                        ValidationGroup="vin1" Display="Dynamic"> </asp:RegularExpressionValidator>
+                    <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="Please Enter To Date."
+                        ToolTip="Please Enter To Date." ClientValidationFunction="CheckDatesMinLessMax"
+                        Display="Dynamic" ValidationGroup="vin1" SetFocusOnError="True" ControlToValidate="txtTDate">*</asp:CustomValidator>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="6" valign="middle" align="center">
+                    <asp:Button ID="btnShow" runat="server" Text="Search " CssClass="newRpt_btn"
+                        OnClick="Button1_Click" ValidationGroup="vin1" />
+                    <asp:ValidationSummary ID="ValidationSummary2" ValidationGroup="vin1" ShowMessageBox="true"
+                        ShowSummary="false" runat="server" style="margin-bottom: 19px" 
+                        Width="565px" />
+                </td>
+            </tr>
+        </table>
+    </center>
+     <table class="newRptParameter_tbl" id="tblrpt" runat="server" cellpadding="2" cellspacing="2" style="display: none;text-align:center">
+         <tr align="center">
+             <td align="center" style="border:1px solid grey" >
+                <div style="text-align: center">
+                <rsweb:ReportViewer ID="ReportViewer1" runat="server" Width="460%" Height="700px" BorderColor="White" CssClass="newRptViewer">
+                </rsweb:ReportViewer>
+                </div>
+             </td>
+         </tr>
+    </table>
+</asp:Content>
+
+__________________________________________________DATABASE________________________________________________
+
+
+__________________________________________________________________________________________________
