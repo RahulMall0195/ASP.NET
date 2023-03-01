@@ -1,0 +1,2763 @@
+___________________________________ITDeclaretion.aspx_______________________________
+
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ITDeclaretion.aspx.cs" Inherits="HRM_HR_TaxComputation_ITDeclaretion" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="sgg" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="../../../css/FA_1.css" rel="stylesheet" type="text/css" />
+    <link href="../../../css/FA_Msg.css" rel="stylesheet" type="text/css" />
+    <script src="../../../Jquery/jquery-1.4.2.min.js" type="text/javascript"></script>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            Allowance_Calcutation();
+            Investment_Calcutation();
+
+            $('#<%=gvSourceOfIncome.ClientID%> [type=checkbox][id*="chkAll"]').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#<%=gvSourceOfIncome.ClientID%> input[id*='chkSelect']").attr('checked', true);
+                    $("#<%=gvSourceOfIncome.ClientID%> input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvIncomeAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                    var validate = $(this).closest('tr').find("[id *= rfvIncomeAmt]");
+                    ValidatorEnable(validate[0], true);
+
+                    //                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    //                    ValidatorEnable(rfvUpload[0], true);
+
+                    SourceOfIncome_Calcutation();
+                }
+                else {
+                    $("#<%=gvSourceOfIncome.ClientID%> input[id*='chkSelect']").attr('checked', false);
+                    $("#<%=gvSourceOfIncome.ClientID%> input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvIncomeAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+
+                    var validate = $(this).closest('tr').find("[id *= rfvIncomeAmt]");
+                    ValidatorEnable(validate[0], false);
+
+                    //                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    //                    ValidatorEnable(rfvUpload[0], false);
+
+                    SourceOfIncome_Calcutation();
+                }
+            });
+            $("#<%=gvSourceOfIncome.ClientID%> input[id*='chkSelect']").click(function () {
+                if ($(this).is(':checked')) {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvIncomeAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                    var validate = $(this).closest('tr').find("[id *= rfvIncomeAmt]");
+                    ValidatorEnable(validate[0], true);
+
+                    //                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    //                    ValidatorEnable(rfvUpload[0], true);
+                    SourceOfIncome_Calcutation();
+                }
+                else {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvIncomeAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+
+                    var validate = $(this).closest('tr').find("[id *= rfvIncomeAmt]");
+                    ValidatorEnable(validate[0], false);
+
+                    //                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    //                    ValidatorEnable(rfvUpload[0], false);
+
+                    SourceOfIncome_Calcutation();
+                }
+            });
+
+            $("#<%=gvSourceOfIncome.ClientID%> input[type=text]").blur(function () {
+                SourceOfIncome_Calcutation();
+            });
+
+
+            function SourceOfIncome_Calcutation() {
+                var totSourceOfIncome = 0.00;
+                var hfTotIncome = $("#hfTotIncome").val();
+                $("#<%=gvSourceOfIncome.ClientID%> input[id*='chkSelect']").each(function () {
+                    if ($(this).is(':checked')) {
+                        var txtAmount = $(this).closest("tr").find("input[type=text]");
+                        $(this).closest("tr").find("[id*=rfvIncomeAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                        var txtAmt = txtAmount.val() == '' ? txtAmount.val('0') : txtAmount.val();
+
+                        if (parseFloat(txtAmt) > 0) {
+                            totSourceOfIncome = totSourceOfIncome + parseFloat(txtAmt);
+                            txtAmount.attr('disabled', '').css({ "border-color": "", "border-width": "" });
+
+                        }
+                        else {
+                            txtAmount.attr('disabled', '').css({ "border-color": "red", "border-width": "2px" });
+                        }
+                    }
+                });
+                totSourceOfIncome = totSourceOfIncome + parseFloat(hfTotIncome);
+
+                $("#lblTotIncome").text(totSourceOfIncome.toString());
+            }
+
+
+            $('#<%=gvAllowanceDtls.ClientID%> [type=checkbox][id*="chkAll"]').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#<%=gvAllowanceDtls.ClientID%> input[id*='chkSelect']").attr('checked', true);
+                    $("#<%=gvAllowanceDtls.ClientID%> input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvAllowAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                    //                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    //                    ValidatorEnable(rfvUpload[0], true);
+
+                    Allowance_Calcutation();
+                }
+                else {
+                    $("#<%=gvAllowanceDtls.ClientID%> input[id*='chkSelect']").attr('checked', false);
+                    $("#<%=gvAllowanceDtls.ClientID%> input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvAllowAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+
+                    //                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    //                    ValidatorEnable(rfvUpload[0], false);
+
+                    Allowance_Calcutation();
+                }
+            });
+            $("#<%=gvAllowanceDtls.ClientID%> input[id*='chkSelect']").click(function () {
+                if ($(this).is(':checked')) {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvAllowAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    ValidatorEnable(rfvUpload[0], true);
+
+                    Allowance_Calcutation();
+                }
+                else {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "2px" }).val('');
+                    $(this).closest("tr").find("[id*=rfvAllowAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                    var rfvUpload = $(this).closest('tr').find("[id *= rfvUploadDocument]");
+                    ValidatorEnable(rfvUpload[0], false);
+
+                    Allowance_Calcutation();
+                }
+            });
+
+            $("#<%=gvAllowanceDtls.ClientID%> input[type=text]").blur(function () {
+                Allowance_Calcutation();
+            });
+
+            $("#<%=gvAllowanceDtls.ClientID%> input[type=text]").keyup(function () {
+                var maxLimit = $(this).closest("tr").find("[id*=lblMax_Limit]").text().trim() == '' ? '0' : $(this).closest("tr").find("[id*=lblMax_Limit]").text();
+                var desc = $(this).closest("tr").find("[id*=lblTitle]").text();
+                var amt = $(this).closest("tr").find("[id*=txtAmount]").val().trim() == '' ? '0' : $(this).closest("tr").find("[id*=txtAmount]").val();
+
+                if (parseFloat(maxLimit) > 0) {
+                    if (parseFloat(amt) > parseFloat(maxLimit)) {
+                        if (desc != "House Rent Allowance") {
+                            $(this).closest("tr").find("[id*=txtAmount]").val('');
+                        }
+                    }
+                }
+            });
+
+            function Allowance_Calcutation() {
+                var TotAllowance = 0.00;
+                var DeclaredAllowance = 0.00;
+
+                $("#<%=gvAllowanceDtls.ClientID%> input[id*='chkSelect']").each(function () {
+                    if ($(this).is(':checked')) {
+                        var txtAmount = $(this).closest("tr").find("input[type=text]");
+
+                        var txtAmt = txtAmount.val() == '' ? txtAmount.val('0') : txtAmount.val();
+
+                        if (parseFloat(txtAmt) > 0) {
+                            TotAllowance = TotAllowance + parseFloat(txtAmt);
+                            txtAmount.attr('disabled', '').css({ "border-color": "", "border-width": "" });
+                            $(this).closest("tr").find("[id*=rfvAllowAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                        }
+                        else {
+                            txtAmount.attr('disabled', '').css({ "border-color": "red", "border-width": "2px" });
+                            $(this).closest("tr").find("[id*=rfvAllowAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                        }
+                    }
+                });
+
+                $("#<%=gvAllowanceDtls.ClientID%> span[id*='lblAmount']").each(function () {
+                    var Amt = $(this).text();
+                    if (Amt == '' || isNaN(Amt)) {
+                        Amt = 0;
+                    }
+                    DeclaredAllowance = DeclaredAllowance + parseFloat(Amt);
+                });
+
+                TotAllowance = TotAllowance + parseFloat(DeclaredAllowance);
+                $("#lblTotAllowance").text(TotAllowance.toString());
+
+            }
+
+
+            $('#<%=gvInvestment.ClientID%> [type=checkbox][id*="chkAll"]').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#<%=gvInvestment.ClientID%> input[id*='chkSelect']").attr('checked', true);
+                    $("#<%=gvInvestment.ClientID%> input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                    Investment_Calcutation();
+                }
+                else {
+                    $("#<%=gvInvestment.ClientID%> input[id*='chkSelect']").attr('checked', false);
+                    $("#<%=gvInvestment.ClientID%> input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                    Investment_Calcutation();
+                }
+            });
+            $("#<%=gvInvestment.ClientID%> input[id*='chkSelect']").click(function () {
+                if ($(this).is(':checked')) {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                    Investment_Calcutation();
+                }
+                else {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                    $(this).closest("tr").find("[id*=txtAmount]").val('');
+                    Investment_Calcutation();
+                }
+            });
+
+            $("#<%=gvInvestment.ClientID%> input[id*='chkParSCitz']").click(function () {
+                if ($(this).is(':checked')) {
+                    //                    $(this).closest("tr").find("input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    //                    $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                    Investment_Calcutation();
+                }
+                else {
+                    //                    $(this).closest("tr").find("input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    //                    $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                    $(this).closest("tr").find("[id*=txtAmount]").val('');
+                    Investment_Calcutation();
+                }
+
+                if ($(this).is(':checked')) {
+                    $(this).closest("tr").find("[id*=lblMaxLimit]").text("50000.00");
+                }
+                else {
+                    var maxLimit = $(this).closest("tr").find("[id*=hdnMaxLimit]").val();
+                    $(this).closest("tr").find("[id*=lblMaxLimit]").text(maxLimit);
+                }
+
+            });
+
+            $("#<%=gvInvestment.ClientID%> input[type=text]").blur(function () {
+                Investment_Calcutation();
+            });
+
+            $("#<%=gvInvestment.ClientID%> input[type=text]").keyup(function () {
+                var maxLimit = $(this).closest("tr").find("[id*=lblMaxLimit]").text().trim() == '' ? '0' : $(this).closest("tr").find("[id*=lblMaxLimit]").text();
+
+                var amt = $(this).closest("tr").find("[id*=txtAmount]").val().trim() == '' ? '0' : $(this).closest("tr").find("[id*=txtAmount]").val();
+                if (parseFloat(maxLimit) > 0) {
+                    if (parseFloat(amt) > parseFloat(maxLimit)) {
+                        $(this).closest("tr").find("[id*=txtAmount]").val('');
+                    }
+                }
+
+            });
+
+            function Investment_Calcutation() {
+                var TotlblInvestment = 0.00;
+                var hfTotInvestment = $("#hfTotInvest").val();
+
+                $("#<%=gvInvestment.ClientID%> input[id*='chkSelect']").each(function () {
+                    if ($(this).is(':checked')) {
+                        var txtAmount = $(this).closest("tr").find("input[type=text]");
+                        $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                        var txtAmt = txtAmount.val() == '' ? txtAmount.val('0') : txtAmount.val();
+
+                        if (parseFloat(txtAmt) > 0) {
+                            TotlblInvestment = TotlblInvestment + parseFloat(txtAmt);
+                            txtAmount.attr('disabled', '').css({ "border-color": "", "border-width": "" });
+                        }
+                        else {
+                            txtAmount.attr('disabled', '').css({ "border-color": "red", "border-width": "2px" });
+                        }
+                    }
+                });
+                TotlblInvestment = TotlblInvestment + parseFloat(hfTotInvestment);
+                $("#lblInvestment").text(TotlblInvestment.toString());
+            }
+
+
+            $('#<%=gvPerquisites.ClientID%> [type=checkbox][id*="chkAll"]').click(function () {
+                if ($(this).is(':checked')) {
+                    $("#<%=gvPerquisites.ClientID%> input[id*='chkSelect']").attr('checked', true);
+                    $("#<%=gvPerquisites.ClientID%> input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvPerquisitesAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                    Perquisites_Calcutation();
+                }
+                else {
+                    $("#<%=gvPerquisites.ClientID%> input[id*='chkSelect']").attr('checked', false);
+                    $("#<%=gvPerquisites.ClientID%> input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvPerquisitesAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                    Perquisites_Calcutation();
+                }
+            });
+            $("#<%=gvPerquisites.ClientID%> input[id*='chkSelect']").click(function () {
+                if ($(this).is(':checked')) {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', '').css({ "border-color": "red", "border-width": "2px" }).val('0');
+                    $(this).closest("tr").find("[id*=rfvPerquisitesAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                    Perquisites_Calcutation();
+                }
+                else {
+                    $(this).closest("tr").find("input[type=text]").attr('disabled', 'disabled').css({ "border-color": "", "border-width": "" }).val('');
+                    $(this).closest("tr").find("[id*=rfvPerquisitesAmt]").attr('enabled', 'false').css({ "border-color": "red", "border-width": "2px" });
+                    Perquisites_Calcutation();
+                }
+            });
+
+            function Perquisites_Calcutation() {
+                var TotlblPerquisites = 0.00;
+                var hfTotPerquisites = $("#hdnPerquisites").val();
+
+                $("#<%=gvPerquisites.ClientID%> input[id*='chkSelect']").each(function () {
+                    if ($(this).is(':checked')) {
+                        var txtAmount = $(this).closest("tr").find("input[type=text]");
+                        $(this).closest("tr").find("[id*=rfvPerquisitesAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+                        var txtAmt = txtAmount.val() == '' ? txtAmount.val('0') : txtAmount.val();
+
+                        if (parseFloat(txtAmt) > 0) {
+                            TotlblPerquisites = TotlblPerquisites + parseFloat(txtAmt);
+                            txtAmount.attr('disabled', '').css({ "border-color": "", "border-width": "" });
+                        }
+                        else {
+                            txtAmount.attr('disabled', '').css({ "border-color": "red", "border-width": "2px" });
+                        }
+                    }
+                });
+                TotlblPerquisites = TotlblPerquisites + parseFloat(hfTotPerquisites);
+                $("#lblPerquisites").text(TotlblPerquisites.toString());
+            }
+            $("#<%=gvPerquisites.ClientID%> input[type=text]").blur(function () {
+                Perquisites_Calcutation();
+            });
+
+            $('#imgClose').click(function () {
+                $('#<%=PnlViewdetail.ClientID %>').css('display', 'none');
+            });
+
+            $('#imgView').live("click", function () {
+                if ($('#hdnETAX_ID').val() == "") {
+                    alert("Please first complete declaration form.");
+                    return false;
+                }
+                $('#idframe').attr('src', 'IT_Invest_Declaration.aspx?ETAX_ID=' + $('#hdnETAX_ID').val() + '&EmpCode=' + $('#hdnEmpCode').val());
+                $('#<%=PnlViewdetail.ClientID %>').css('display', 'block');
+            });
+            $('#btnprint').click(function () {
+                var currentdate = new Date();
+                var datetime = "<b>Document Printing Datetime : </b>" + currentdate.getDate() + "/"
+                + (currentdate.getMonth() + 1) + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+                //$("span[id$='datetime']").html(datetime);
+
+                var divToPrint = $('#idframe').contents().find('[id*=divPrint]');
+
+                var popupWin = window.open('', '_blank', 'width=780,height=380');
+
+                popupWin.document.write('<html><head><link href="../../css/FA_Msg.css" rel="stylesheet" type="text/css" /></head><body onload="window.print()">'
+            + divToPrint.html() + '</html>');
+
+                popupWin.document.close();
+
+                setTimeout(function () { popupWin.close(); }, 100);
+
+            });
+
+
+        });
+
+        function CallMethod() {
+          window.parent.MakeActive();
+        }
+         
+    </script>
+    <%--  <script type="text/javascript">
+        $(document).ready(function () {
+            $("#<%=gvInvestment.ClientID%> input[type=text]").blur(function () {
+                var pf = $("#hfTotInvest").val();               
+                var totalSection = 0.00;
+                $("#<%=gvInvestment.ClientID%> input[id*='chkSelect']").each(function () {
+                    if ($(this).is(':checked')) {
+
+                        var txtAmount = $(this).closest("tr").find("input[type=text]");
+                        var lblAmount = $(this).closest("tr").find("span[id*='lblAmount']").text();
+                        $(this).closest("tr").find("[id*=rfvDeductAmt]").attr('enabled', 'true').css({ "border-color": "red", "border-width": "2px" });
+
+                        var Section = $(this).closest("tr").find("span[id*='lblSection']").text();
+                        if (Section == "80C") {
+                            totalSection = totalSection + parseFloat(txtAmount.val());
+                        }
+                    }
+                });
+                totalSection = totalSection + parseFloat(pf);
+
+
+                if (parseFloat(totalSection) > 150000) {
+                    alert('Total Amount Declared for 80C Section can not be greater than Rs. 1,50,000');
+                    $(this).val('');
+                }
+            });
+        });
+    
+    
+    </script>--%>
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
+    <div>
+        <table width="100%" style="overflow: scroll;">
+            <tr>
+                <td colspan="4">
+                    <asp:Panel ID="ErrorContainer" runat="server" CssClass="EmptyError">
+                        <asp:Label ID="MyMessage" runat="server" Font-Size="10pt"></asp:Label>
+                    </asp:Panel>
+                </td>
+            </tr>
+        </table>
+        <asp:Panel ID="PanelADDContent" runat="server">
+            <table width="100%" style="border-collapse: collapse;">
+                <tr>
+                    <td colspan="4" class="con_content">
+                        <table width="100%">
+                            <tr>
+                                <td class="Left" style="width: 12%;">
+                                    Employee Name :
+                                </td>
+                                <td style="width: 22%;">
+                                    <asp:Label ID="lblEmpName" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left" style="width: 12%;">
+                                    Branch :
+                                </td>
+                                <td style="width: 22%;">
+                                    <asp:Label ID="lblBranch" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left" style="width: 12%;">
+                                    Designation :
+                                </td>
+                                <td style="width: 22%;">
+                                    <asp:Label ID="lblDesignation" runat="server" Text=""></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="Left">
+                                    Department :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblDepartment" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left">
+                                    Gender :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblGender" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left">
+                                    DOB :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblDOB" runat="server" Text=""></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="Left">
+                                    DOJ :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblDOJ" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left">
+                                    Contact No. :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblContactNo" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left">
+                                    Email :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblEmail" runat="server" Text=""></asp:Label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="Left">
+                                    PAN No. :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblPAN" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left">
+                                    Financial Year :
+                                </td>
+                                <td>
+                                    <asp:Label ID="lblFinYear" runat="server" Text=""></asp:Label>
+                                </td>
+                                <td class="Left">
+                                    City Of Residence :
+                                </td>
+                                <td>
+                                    <asp:DropDownList ID="ddlResidence" runat="server" CssClass="ddlNormal">
+                                        <asp:ListItem Value="0" Selected="True" Text="Select Residence">
+                                        </asp:ListItem>
+                                    </asp:DropDownList>
+                                    <asp:RequiredFieldValidator ID="rfvddlResidence" runat="server" ControlToValidate="ddlResidence"
+                                        InitialValue="0" ErrorMessage="Select Residence" ToolTip="Select Residence" ValidationGroup="vin"> *</asp:RequiredFieldValidator>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="con_header">
+                        Source Of Income Declaration
+                    </td>
+                    <td>
+                    </td>
+                    <td class="con_header">
+                        Allowance Declaration
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" class="con_content" style="border-right-color: Navy; border-right: double 2px;">
+                        <div style="max-height: 210px; height: 210px; overflow: auto; padding-left: 5px;">
+                            <asp:GridView ID="gvSourceOfIncome" runat="server" AutoGenerateColumns="false" CssClass="grid-view_1"
+                                Width="97%">
+                                <HeaderStyle CssClass="header_1" />
+                                <RowStyle CssClass="normal_1" />
+                                <AlternatingRowStyle CssClass="alternaterow" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Sr No">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                            <asp:HiddenField ID="hfSOI_ID" runat="server" Value='<%# Eval("SOI_ID") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="10%" HorizontalAlign="Center" Height="25px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Source Of Income">
+                                        <ItemTemplate>
+                                         <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td style="width: 90%">
+                                                    &nbsp;
+                                                    <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Short_Desc") %>' />
+                                                   <%-- <asp:HiddenField ID="hdnFILE_PATH" runat="server" Value='<%# Eval("FILE_PATH") %>' />
+                                                    
+                                                    <img id="imgFileViewIncome" src="../../../images/attach.png" style="cursor: pointer; width: 15px;
+                                                        height: 15px;display:<%# Eval("FILE_PATH").ToString() != "" ? "":"none"%>; title="View File" alt="" />--%>
+                                                <%--          <asp:RequiredFieldValidator ID="rfvUploadDocument" runat="server" Enabled="false" Display="Dynamic"
+                                                InitialValue="" ControlToValidate="fuUploadDocument" ValidationGroup="vin" ErrorMessage="Upload Income File.">*</asp:RequiredFieldValidator>
+                                                --%>
+                                                </td>
+                                                <td style="width: 10%">
+                                                    <b style="float: right; padding-right: 3px; color: Red;">
+                                                        <%--<asp:Label ID="lblReqDoc" runat="server" Text="[Documents Required]" Visible='<%# bool.Parse(Eval("ReqDocument").ToString() == "Y" ? "True":"False" ) %>' />--%>
+                                                        <asp:FileUpload ID="fuUploadDocument" runat="server" Visible='<%# bool.Parse(Eval("ReqDocument").ToString() == "Y" ? "True":"False" ) %>'
+                                                            Style="width: 120px;" />
+                                                          
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Amount">
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="txtAmount" runat="server" CssClass="FA_txtCurrency" Enabled="false"
+                                                Style="width: 76%" Text='<%# Eval("Max_Limit") %>' Visible='<%# bool.Parse(Eval("SOI_ID").ToString() == "1" ? "False": "True") %>'  MaxLength="13" autocomplete="off"/>
+                                            <b style="float: right;">
+                                                <asp:Label ID="lblAmount" runat="server" Text='<%# Eval("Max_Limit") %>' Visible='<%# bool.Parse(Eval("SOI_ID").ToString() == "1" ? "True":"False" ) %>' style="padding: 12px;"/></b>
+                                            <sgg:FilteredTextBoxExtender ID="FTE_txtAmount" runat="server" FilterMode="ValidChars"
+                                                FilterType="Numbers,Custom" ValidChars="." Enabled="True" TargetControlID="txtAmount">
+                                            </sgg:FilteredTextBoxExtender>
+                                            <asp:RequiredFieldValidator ID="rfvIncomeAmt" runat="server" Enabled="false" Display="Dynamic"
+                                                InitialValue="0" ControlToValidate="txtAmount" ValidationGroup="vin" ErrorMessage="Enter Income Amount Greater Than Zero.">*</asp:RequiredFieldValidator>
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="chkAll" runat="server" />
+                                        </HeaderTemplate>
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelect" runat="server" Visible='<%# bool.Parse(Eval("SOI_ID").ToString() == "1" ? "False": "True") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="30px" HorizontalAlign="Center"></ItemStyle>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </td>
+                    <td colspan="2" class="con_content" style="border-left-color: Navy; border-left: double 2px;">
+                        <div style="max-height: 210; height: 210px; overflow: auto; padding-left: 5px;">
+                            <asp:GridView ID="gvAllowanceDtls" runat="server" AutoGenerateColumns="false" CssClass="grid-view_1"
+                                Width="97%">
+                                <HeaderStyle CssClass="header_1" />
+                                <RowStyle CssClass="normal_1" />
+                                <AlternatingRowStyle CssClass="alternaterow" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Sr&nbsp;No">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                             <asp:HiddenField ID="hfAllow_ID" runat="server" Value='<%# Eval("Allow_ID") %>' />
+                                             <asp:HiddenField ID="hdnDescId" runat="server" Value='<%# Eval("Desc_Id") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="5%" HorizontalAlign="Center" Height="20px" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Allowance Title">
+                                        <ItemTemplate>
+                                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td style="width: 90%">
+                                                    &nbsp;
+                                                    <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Short_Desc") %>' />
+                                                    <b>(Max Limit :
+                                                        <asp:Label ID="lblMax_Limit" runat="server" Text='<%# (!(Eval("Short_Desc").ToString() == "Medical Expense" || Eval("Desc_Id").ToString() == "8"|| Eval("DrvRemb").ToString() == "Y"))? Eval("TotalEarn"):"0.00" %>' Style="color: Red;" />)</b>
+                                                       <%-- <asp:HiddenField ID="hdnFILE_PATH" runat="server" Value='<%# Eval("FILE_PATH") %>' />
+                                                    <img id="imgFileViewAllowance" src="../../../images/attach.png" style="cursor: pointer; width: 15px;height: 15px;
+                                                        display:<%# Eval("FILE_PATH").ToString() != "" ? "":"none" %>; title="View File" alt="" />--%>
+                                               <%--           <asp:RequiredFieldValidator ID="rfvUploadDocument" runat="server" Enabled="false" Display="Dynamic"
+                                                InitialValue="" ControlToValidate="fuUploadDocument" ValidationGroup="vin" ErrorMessage="Upload Allowance File.">*</asp:RequiredFieldValidator>
+                                                --%>
+                                                </td>
+                                                <td style="width: 10%">
+                                                    <b style="float: right; padding-right: 3px; color: Red;">
+                                                        <%--<asp:Label ID="lblReqDoc" runat="server" Text="[Documents Required]" Visible='<%# bool.Parse(Eval("ReqDocument").ToString() == "Y" ? "True":"False" ) %>' />--%>
+                                                        <asp:FileUpload ID="fuUploadDocument" runat="server" Visible='<%# bool.Parse((Eval("ReqDocument").ToString() == "Y" && !(Eval("TotalEarn").ToString() == "0.00" || Eval("Short_Desc").ToString() == "Transport Allowance" || Eval("Short_Desc").ToString() == "Medical Expense"|| Eval("Desc_Id").ToString() == "8"|| Eval("DrvRemb").ToString() == "Y"))? "True":"False" ) %>'
+                                                            Style="width: 120px;" />
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Amount">
+                                        <ItemTemplate>
+                                            <b>
+                                            <asp:Label ID="lblAmount" runat="server" Text="0" Visible='<%# bool.Parse(Eval("Short_Desc").ToString() != "Transport Allowance" ? "False": "True") %>' /></b>
+                                            <%--<asp:Label ID="lblAmount" runat="server" Text='<%# Eval("TotalEarn") %>' Visible='<%# bool.Parse(Eval("Short_Desc").ToString() != "Transport Allowance" ? "False": "True") %>' /></b>--%>
+                                            <asp:TextBox ID="txtAmount" runat="server" CssClass="FA_txtCurrency" Enabled="false"
+                                                Style="width: 76%" Visible='<%# bool.Parse(Eval("TotalEarn").ToString() == "0.00" || Eval("Short_Desc").ToString() == "Transport Allowance" || Eval("Desc_Id").ToString() == "8"? "False": "True") %>' MaxLength="13" autocomplete="off"/>
+                                            <sgg:FilteredTextBoxExtender ID="FTE_txtAmount" runat="server" FilterMode="ValidChars"
+                                                FilterType="Numbers,Custom" ValidChars="." Enabled="True" TargetControlID="txtAmount">
+                                            </sgg:FilteredTextBoxExtender>
+                                            <asp:RequiredFieldValidator ID="rfvAllowAmt" runat="server" Enabled="false" Display="Dynamic"
+                                                InitialValue="0" ControlToValidate="txtAmount" ValidationGroup="vin" ErrorMessage="Enter Allowance Amount Greater Than Zero.">*</asp:RequiredFieldValidator>
+                                            <asp:HiddenField ID="hMaxLimit" runat="server" Value='<%# Eval("Max_Limit") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="chkAll" runat="server" />
+                                        </HeaderTemplate>
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelect" runat="server" Visible='<%# bool.Parse(Eval("TotalEarn").ToString() == "0.00" || Eval("Short_Desc").ToString() == "Transport Allowance"|| Eval("Desc_Id").ToString() == "8" ? "False": "True") %>' Enabled='<%# bool.Parse((Eval("Short_Desc").ToString() == "Medical Expense" || Eval("DrvRemb").ToString() == "Y") ? "False": "True") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="30px" HorizontalAlign="Center"></ItemStyle>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2" style="padding-bottom: 10px;">
+                        <div style="padding-left: 20px; padding-top: 5px; border: 1px solid #999999; background-color: #B4CDCD;
+                            font-weight: bold; height: 20px;">
+                            Total Source Of Income Declaration :
+                            <asp:Label ID="lblTotIncome" runat="server" Text="0.00"></asp:Label>
+                            <asp:HiddenField ID="hfTotIncome" runat="server" Value="0.00"></asp:HiddenField>
+                        </div>
+                    </td>
+                    <td colspan="2" style="padding-bottom: 10px;">
+                        <div style="padding-left: 20px; padding-top: 5px; border: 1px solid #999999; background-color: #B4CDCD;
+                            font-weight: bold; height: 20px;">
+                            Total Allowance Declaration :
+                            <asp:Label ID="lblTotAllowance" runat="server" Text="0.00"></asp:Label>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="con_header">
+                        Saving / Investment Declaration
+                    </td>
+                    <td colspan="3">
+                        <b style="color: Red;">&nbsp;&nbsp;
+                            <asp:Label ID="lblReqDoc" runat="server" Text="[Below declaration required documents]" /></b>
+                             <%-- <asp:HiddenField ID="hdnFILE_PATH" runat="server"/>
+                        <img id="imgFileView" src="../../../images/attach.png" style="cursor: pointer; width: 15px;
+                            height: 15px;" title="View File" alt="" />--%>
+                    <%--<asp:RequiredFieldValidator ID="rfvUploadDocument" runat="server" Display="Dynamic"
+                                                InitialValue="" ControlToValidate="fuUploadDocument" ValidationGroup="vinEmp" ErrorMessage="Upload Investment Declaration File.">*</asp:RequiredFieldValidator>
+                   --%>
+                     <asp:FileUpload ID="fuUploadDocument" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="con_content">
+                        <div style="padding-left: 5px;">
+                            <asp:GridView ID="gvInvestment" runat="server" AutoGenerateColumns="false" CssClass="grid-view_1"
+                                Width="97%"  OnDataBound="OnDataBound"> 
+                                <HeaderStyle CssClass="header_1" />
+                                <RowStyle CssClass="normal_1" />
+                                <AlternatingRowStyle CssClass="alternaterow" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Sr No">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                            <asp:HiddenField ID="hfDed_ID" runat="server" Value='<%# Eval("Ded_ID") %>' />
+                                            <asp:HiddenField ID="hdnCode" runat="server" Value='<%# Eval("Code") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="7%" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Section">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblSection" runat="server" Text='<%# Eval("Section") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Particulars">
+                                        <ItemTemplate>
+                                            &nbsp;
+                                            <asp:Label ID="lblTitle" runat="server" Text='<%# Eval("Short_Desc") %>' />
+                                              &nbsp;<asp:CheckBox ID="chkParSCitz" runat="server" Text="(Senior Citizen)"  Visible='<%# bool.Parse(Eval("Short_Desc").ToString() == "Health insurance Premium for  Parents" ? "True":"False" ) %>'  />
+                                        </ItemTemplate>
+                                        <ItemStyle HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+<%--changes made by rrr start--%>
+                                     <asp:TemplateField HeaderText="File">
+                                        <ItemTemplate>
+                                          <asp:FileUpload ID="fuUploadDocument" runat="server" Visible='<%# bool.Parse(Eval("ReqDocument").ToString() == "Y" ? "True":"False" ) %>'
+                                                            Style="width: 120px;" /> 
+                                          </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+<%--changes made by rrr  end--%>
+                                    <asp:TemplateField HeaderText="Amount">
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="txtAmount" runat="server" CssClass="FA_txtCurrency" Enabled="false"
+                                                Text='<%# Eval("Amount") %>' Style="width: 76%" Visible='<%# bool.Parse(Eval("Short_Desc").ToString() == "Employee Provident Fund" ? "False": "True") %>' MaxLength="13" autocomplete="off"/>
+                                            <b style="float: right;">
+                                                <asp:Label ID="lblAmount" runat="server" Text='<%# Eval("Amount") %>' Visible='<%# bool.Parse(Eval("Short_Desc").ToString() == "Employee Provident Fund" ? "True":"False" ) %>' style="padding: 12px;" /></b>
+                                            <sgg:FilteredTextBoxExtender ID="FTE_txtAmount" runat="server" FilterMode="ValidChars"
+                                                FilterType="Numbers,Custom" ValidChars="." Enabled="True" TargetControlID="txtAmount">
+                                            </sgg:FilteredTextBoxExtender>
+                                            <asp:RequiredFieldValidator ID="rfvDeductAmt" runat="server" Display="Dynamic" Enabled="false"
+                                                InitialValue="0" ControlToValidate="txtAmount" ValidationGroup="vin" ErrorMessage="Enter Saving/Investment Amount Greater Than Zero.">*</asp:RequiredFieldValidator>
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+
+                                   <%--  <asp:TemplateField HeaderText="Min Limit">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMinLimit" runat="server" Text='<%# Eval("Min_Limit") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Right" />
+                                    </asp:TemplateField>--%>
+
+                                    <asp:TemplateField HeaderText="Min Limit">
+                                        <ItemTemplate>
+                                            <asp:Label ID="lblMinLimit" runat="server" Text='<%# Eval("Min_Limit") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Right" />
+                                    </asp:TemplateField>
+                                <%--     <asp:BoundField DataField="Max_Limit" HeaderText="Max Limit" ItemStyle-Width="100" />--%>
+                                    <asp:TemplateField HeaderText="Max Limit">
+                                        <ItemTemplate>
+                                            <asp:HiddenField ID="hdnMaxLimit" runat="server" Value='<%# Eval("Max_Limit") %>' />
+                                            <asp:Label ID="lblMaxLimit" runat="server" Text='<%# Eval("Max_Limit") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="100px" HorizontalAlign="Right" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="chkAll" runat="server" />
+                                        </HeaderTemplate>
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelect" runat="server" Visible='<%# bool.Parse(Eval("Short_Desc").ToString() == "Employee Provident Fund" ? "False": "True") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="30px" HorizontalAlign="Center"></ItemStyle>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div style="padding-left: 20px; padding-top: 5px; border: 1px solid #999999; background-color: #B4CDCD;
+                            font-weight: bold; height: 20px;">
+                            Total Saving / Investment Declaration :
+                            <asp:Label ID="lblInvestment" runat="server" Text="0.00"></asp:Label>
+                            <asp:HiddenField ID="hfTotInvest" runat="server" Value="0.00"></asp:HiddenField>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="con_header">
+                        Perquisites Declaration
+                    </td>
+                    <td colspan="3">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" class="con_content">
+                        <div style="padding-left: 5px;">
+                            <asp:GridView ID="gvPerquisites" runat="server" AutoGenerateColumns="false" CssClass="grid-view_1"
+                                Width="70%">
+                                <HeaderStyle CssClass="header_1" />
+                                <RowStyle CssClass="normal_1" />
+                                <AlternatingRowStyle CssClass="alternaterow" />
+                                <Columns>
+                                    <asp:TemplateField HeaderText="Sr No">
+                                        <ItemTemplate>
+                                            <%# Container.DataItemIndex + 1 %>
+                                            <asp:HiddenField ID="hfPRQ_ID" runat="server" Value='<%# Eval("PRQ_ID") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="7%" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Perquisites Name">
+                                        <ItemTemplate>
+                                             &nbsp;<asp:Label ID="lblPRQ_NAME" runat="server" Text='<%# Eval("PRQ_NAME") %>' />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="50%" HorizontalAlign="Left" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField HeaderText="Amount">
+                                        <ItemTemplate>
+                                            <asp:TextBox ID="txtAmount" runat="server" CssClass="FA_txtCurrency" Enabled="false"
+                                                Text="" Style="width: 76%" />
+                                            <sgg:FilteredTextBoxExtender ID="FTE_txtAmount" runat="server" FilterMode="ValidChars"
+                                                FilterType="Numbers,Custom" ValidChars="." Enabled="True" TargetControlID="txtAmount">
+                                            </sgg:FilteredTextBoxExtender>
+                                            <asp:RequiredFieldValidator ID="rfvPerquisitesAmt" runat="server" Display="Dynamic" Enabled="false"
+                                                InitialValue="0" ControlToValidate="txtAmount" ValidationGroup="vin" ErrorMessage="Enter Perquisites Amount Greater Than Zero.">*</asp:RequiredFieldValidator>
+                                        </ItemTemplate>
+                                        <ItemStyle Width="25%" HorizontalAlign="Center" />
+                                    </asp:TemplateField>
+                                    <asp:TemplateField>
+                                        <HeaderTemplate>
+                                            <asp:CheckBox ID="chkAll" runat="server" />
+                                        </HeaderTemplate>
+                                        <HeaderStyle HorizontalAlign="Center" />
+                                        <ItemTemplate>
+                                            <asp:CheckBox ID="chkSelect" runat="server" />
+                                        </ItemTemplate>
+                                        <ItemStyle Width="30px" HorizontalAlign="Center"></ItemStyle>
+                                    </asp:TemplateField>
+                                </Columns>
+                            </asp:GridView>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <div style="padding-left: 20px; padding-top: 5px; border: 1px solid #999999; background-color: #B4CDCD;
+                            font-weight: bold; height: 20px;">
+                            Total Perquisites Declaration :
+                            <asp:Label ID="lblPerquisites" runat="server" Text="0.00"></asp:Label>
+                            <asp:HiddenField ID="hdnPerquisites" runat="server" Value="0.00"></asp:HiddenField>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center">
+                        <asp:Button ID="btnSubmit" runat="server" Text="Submit" CssClass="Submit" CausesValidation="true"
+                            ValidationGroup="vin" OnClick="btnSubmit_Click" />
+                        <input type="button" value="View" name="View" class="Submit" id="imgView" />
+                        <asp:Button ID="btnCancel" runat="server" Text="Cancel" CssClass="Submit" CausesValidation="false"
+                            ValidationGroup="vin" />
+                        <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="vin"
+                            Enabled="true" HeaderText="" ShowMessageBox="true" ShowSummary="false" />
+                        <asp:HiddenField ID="hdnFrom" runat="server" />
+                        <asp:HiddenField ID="hdnTo" runat="server" />
+
+                        <asp:HiddenField ID="hdnETAX_ID" runat="server" />
+                        <asp:HiddenField ID="hdnEmpCode" runat="server" />
+                    </td>
+                </tr>
+            </table>
+        </asp:Panel>
+    </div>
+
+    <div>
+        <asp:Panel ID="PnlViewdetail" runat="server" Style="display: none;">
+            <div id="Div1" class="Reportpopupbox " style="height: 440px; top: 0px;">
+                <table style="width: 100%">
+                    <tr>
+                        <td class="closePopup" style="float: left">
+                        </td>
+                        <td>
+                            <div style="float: right; padding-right: 10px;" id="Div2" class="closePopup">
+                                <img  id="btnprint" src="../../../images/print.png"/> Print <img id="imgClose" src="../../../images/dialog-close.png"  />
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td colspan="2">
+                            <div style="width: 100%; height: 420px; overflow: auto; text-align: left;">
+                                <iframe id="idframe" width="1100px" height="400px"></iframe>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </asp:Panel>
+    </div>
+     <asp:Button ID="btnShowFile" runat="server" Style="display: none;" />
+    <sgg:ModalPopupExtender ID="ModalPhysicalFile" runat="server" TargetControlID="btnShowFile"
+        PopupControlID="pnlPhysicalFile" BackgroundCssClass="modalBackground" BehaviorID="mpePhysicalFile"
+        CancelControlID="closeFile">
+    </sgg:ModalPopupExtender>
+    <asp:Panel ID="pnlPhysicalFile" runat="server" Style="display: none;">
+        <div id="divvendor1" style="overflow: auto; width: 90%; height: 440px; top: 1px;"
+            class='Reportpopupbox'>
+            <div class="PopTitle">
+                <span id="Span2">Attached File </span><span id="closeFile" class="cls" style="float: right;
+                    cursor: pointer; position: relative; right: 10px; padding: 0px 3px 0px 3px;">X</span>
+                <img id="img1" src="../../../images/imgClose.png" style="float: right; padding-right: 20px;
+                    width: 70px; top: -3px; display: none; position: relative;" alt="" />
+                <br />
+                <hr />
+            </div>
+            <div id="divFrame">
+            </div>
+        </div>
+    </asp:Panel>
+    </form>
+</body>
+</html>
+
+___________________________________ITDeclaretion.aspx.cs_______________________________
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+public partial class HRM_HR_TaxComputation_ITDeclaretion : System.Web.UI.Page
+{
+    BAL_ITDeduction ITded = new BAL_ITDeduction();
+    Message Msg = new Message();
+
+    BAL_Employee_Tax_Declaration Tax = new BAL_Employee_Tax_Declaration();
+    public string g_Parent_SrCitz = "N";
+
+    void Page_PreRender(object obj, EventArgs e)
+    {
+        ViewState["update"] = Session["update"];
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            lblFinYear.Text = getFinYear();
+
+
+            Fill_ITDeductionForm();
+            DataTable dt = ITded.ResidenceCity(lblFinYear.Text);
+            if (dt.Rows.Count > 0)
+            {
+                ddlResidence.DataSource = dt;
+                ddlResidence.DataTextField = "CityType";
+                ddlResidence.DataValueField = "RES_ID";
+                ddlResidence.DataBind();
+                ddlResidence.Items.Insert(0, new ListItem("Select Residence", "0"));
+            }
+            Session["update"] = Server.UrlEncode(DateTime.Now.ToString());
+        }
+    }
+
+    private string getFinYear()
+    {
+        int _months = DateTime.Now.Month;
+        int _years = DateTime.Now.Year;
+        string FinYear = "";
+
+
+        if (_months >= 1 && _months <= 3)
+        {
+            FinYear = (_years - 1).ToString() + "-" + (_years).ToString();
+        }
+        else
+        {
+            FinYear = (_years).ToString() + "-" + (_years + 1).ToString();
+        }
+
+        char[] delimiterChars = { '-' };
+        string[] Range = FinYear.Split(delimiterChars);
+
+        hdnFrom.Value = "01/04/" + Range[0].ToString();
+        hdnTo.Value = "31/03/" + Range[1].ToString();
+
+        return FinYear;
+    }
+
+    private void Fill_ITDeductionForm()
+    {
+        DataSet ds = ITded.ITDeduction_Form(lblFinYear.Text, Session["Employee_Code"].ToString());
+        // DataSet ds = ITded.ITDeduction_Form(lblFinYear.Text,  Session["Employee_Code"].ToString());
+        DataTable dtE = ds.Tables[4];
+        double _CurrentCompIncome = 0;
+        double _CurrentCompInvest = 0;
+
+
+        if (ds.Tables[0].Rows.Count > 0)
+        {
+            _CurrentCompIncome = Convert.ToDouble(ds.Tables[4].Compute("sum(TotalEarn)", "Types='Earnings'").ToString());
+
+            ds.Tables[0].Rows[0]["Max_Limit"] = _CurrentCompIncome;
+
+            gvSourceOfIncome.DataSource = ds.Tables[0];
+            gvSourceOfIncome.DataBind();
+        }
+
+        if (ds.Tables[1].Rows.Count > 0)
+        {
+            DataTable dt = ds.Tables[1];
+
+            var JoinResult = (from p in dt.AsEnumerable()
+                              join t in dtE.AsEnumerable()
+                              on p.Field<string>("Short_desc") equals t.Field<string>("Title")
+                              select new
+                              {
+                                  Short_desc = p.Field<string>("Short_Desc"),
+                                  Allow_CODE = p.Field<string>("Allow_CODE"),
+                                  Allow_ID = p.Field<decimal>("Allow_ID"),
+                                  Max_Limit = p.Field<decimal?>("Max_Limit"),
+                                  ReqDocument = p.Field<string>("ReqDocument"),
+                                  TotalEarn = t.Field<decimal?>("TotalEarn"),
+                                  DrvRemb = p.Field<string>("DrvRemb"),
+                                  VehRMRemb = p.Field<string>("VehRMRemb"),
+                                  Desc_Id = p.Field<Int32>("Desc_Id")
+                              }).ToList();
+
+            gvAllowanceDtls.DataSource = JoinResult;
+            gvAllowanceDtls.DataBind();
+
+        }
+
+        if (ds.Tables[2].Rows.Count > 0)
+        {
+            DataView dvPF = dtE.DefaultView;
+            dvPF.RowFilter = "Title='PF'";
+            DataTable dtInv = ds.Tables[2];
+            foreach (DataRow dr in dtInv.Rows)
+            {
+                if (dr["Short_Desc"].ToString() == "Employee Provident Fund")
+                    dr["Amount"] = dvPF[0][2];
+
+            }
+            gvInvestment.DataSource = dtInv;
+            gvInvestment.DataBind();
+            _CurrentCompInvest = Convert.ToDouble(dtInv.Compute("sum(Amount)", "").ToString());
+            hfTotInvest.Value = Convert.ToString(_CurrentCompInvest);
+            // gvInvestment.DataSource = ds.Tables[2];
+            // gvInvestment.DataBind();
+        }
+        if (ds.Tables[3].Rows.Count > 0)
+        {
+            lblEmpName.Text = ds.Tables[3].Rows[0]["Employee_Name"].ToString();
+            lblBranch.Text = ds.Tables[3].Rows[0]["Branch"].ToString();
+            lblDesignation.Text = ds.Tables[3].Rows[0]["Designation"].ToString();
+            lblDepartment.Text = ds.Tables[3].Rows[0]["Department"].ToString();
+            lblGender.Text = ds.Tables[3].Rows[0]["Gender"].ToString();
+            lblDOB.Text = ds.Tables[3].Rows[0]["DOB"].ToString();
+            lblDOJ.Text = ds.Tables[3].Rows[0]["DOJ"].ToString();
+            lblContactNo.Text = ds.Tables[3].Rows[0]["PersonalContact"].ToString();
+            lblEmail.Text = ds.Tables[3].Rows[0]["Emailid"].ToString();
+            lblPAN.Text = ds.Tables[3].Rows[0]["PAN_No"].ToString();
+            lblTotIncome.Text = _CurrentCompIncome.ToString();
+            hfTotIncome.Value = _CurrentCompIncome.ToString();
+        }
+
+        if (ds.Tables[5].Rows.Count > 0)
+        {
+            gvPerquisites.DataSource = ds.Tables[5];
+            gvPerquisites.DataBind();
+        }
+    }
+
+    public DataTable Allow()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;
+
+        dt.Columns.Add("Allow_ID", typeof(double));
+        dt.Columns.Add("AllowBySal", typeof(double));
+        dt.Columns.Add("Amount", typeof(double));
+
+        foreach (GridViewRow gvr in gvAllowanceDtls.Rows)
+        {
+            CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+
+            HiddenField hfAllow_ID = (HiddenField)gvr.FindControl("hfAllow_ID");
+            Label lblMax_Limit = (Label)gvr.FindControl("lblMax_Limit");
+            TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount");
+            Label lblAmount = (Label)gvr.FindControl("lblAmount");
+
+            if (hfAllow_ID.Value == "7")
+            {
+                dr = dt.NewRow();
+
+                dr["Allow_ID"] = Convert.ToDouble(hfAllow_ID.Value);
+                dr["AllowBySal"] = Convert.ToDouble(lblMax_Limit.Text);
+                dr["Amount"] = Convert.ToDouble(lblAmount.Text);
+                dt.Rows.Add(dr);
+            }
+
+            if (chkSelect.Checked == true)
+            {
+                dr = dt.NewRow();
+
+                dr["Allow_ID"] = Convert.ToDouble(hfAllow_ID.Value);
+                dr["AllowBySal"] = Convert.ToDouble(lblMax_Limit.Text);
+                dr["Amount"] = Convert.ToDouble(txtAmount.Text);
+
+                dt.Rows.Add(dr);
+            }
+        }
+
+
+        return dt;
+
+    }
+
+    public List<Allowance_Declaration> Allow_Insert()
+    {
+        List<Allowance_Declaration> _list = new List<Allowance_Declaration>();
+        Allowance_Declaration item = null;
+
+        foreach (GridViewRow gvr in gvAllowanceDtls.Rows)
+        {
+            CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+
+            HiddenField hfAllow_ID = (HiddenField)gvr.FindControl("hfAllow_ID");
+            Label lblMax_Limit = (Label)gvr.FindControl("lblMax_Limit");
+            TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount");
+            Label lblAmount = (Label)gvr.FindControl("lblAmount");
+
+            FileUpload fuDocument = (FileUpload)gvr.FindControl("fuUploadDocument");
+            HiddenField hdnDescId = (HiddenField)gvr.FindControl("hdnDescId");
+            Label lblTitle = (Label)gvr.FindControl("lblTitle");
+
+            if (hdnDescId.Value == "7")
+            {
+                item = new Allowance_Declaration();
+                item.Allow_ID = Convert.ToDouble(hfAllow_ID.Value);
+                item.AllowBySal = Convert.ToDouble(lblMax_Limit.Text);
+                item.Amount = Convert.ToDouble(lblAmount.Text);
+                item.DocName = Convert.ToString(lblTitle.Text);
+                if (fuDocument.HasFile)
+                {
+                    item.Document = fuDocument;
+                }
+                _list.Add(item);
+            }
+
+            if (chkSelect.Checked == true)
+            {
+                item = new Allowance_Declaration();
+                item.Allow_ID = Convert.ToDouble(hfAllow_ID.Value);
+                item.AllowBySal = Convert.ToDouble(lblMax_Limit.Text);
+                item.Amount = Convert.ToDouble(txtAmount.Text);
+                item.DocName = Convert.ToString(lblTitle.Text);
+                if (fuDocument.HasFile)
+                {
+                    item.Document = fuDocument;
+                }
+                _list.Add(item);
+            }
+        }
+
+        return _list;
+    }
+
+    public DataTable Income()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;  //
+
+        dt.Columns.Add("SOI_ID", typeof(double));
+        dt.Columns.Add("Amount", typeof(double));
+
+        foreach (GridViewRow gvr in gvSourceOfIncome.Rows)
+        {
+            CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+            HiddenField hfSOI_ID = (HiddenField)gvr.FindControl("hfSOI_ID");
+            TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount");
+            Label lblAmount = (Label)gvr.FindControl("lblAmount");
+
+            if (hfSOI_ID.Value == "1")
+            {
+                dr = dt.NewRow();
+                dr["SOI_ID"] = Convert.ToDouble(hfSOI_ID.Value);
+                dr["Amount"] = Convert.ToDouble(lblAmount.Text);
+                dt.Rows.Add(dr);
+            }
+            if (chkSelect.Checked == true)
+            {
+                dr = dt.NewRow();
+                dr["SOI_ID"] = Convert.ToDouble(hfSOI_ID.Value);
+                dr["Amount"] = Convert.ToDouble(txtAmount.Text);
+                dt.Rows.Add(dr);
+            }
+        }
+
+        return dt;
+    }
+
+    public List<Income_Declaration> Income_Insert()
+    {
+        List<Income_Declaration> _list = new List<Income_Declaration>();
+        Income_Declaration item = null;
+        foreach (GridViewRow gvr in gvSourceOfIncome.Rows)
+        {
+            CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+            HiddenField hfSOI_ID = (HiddenField)gvr.FindControl("hfSOI_ID");
+            TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount");
+            Label lblAmount = (Label)gvr.FindControl("lblAmount");
+            FileUpload fuDocument = (FileUpload)gvr.FindControl("fuUploadDocument");
+
+            if (hfSOI_ID.Value == "1")
+            {
+                item = new Income_Declaration();
+                item.SOI_ID = Convert.ToDouble(hfSOI_ID.Value);
+                item.Amount = Convert.ToDouble(lblAmount.Text);
+                if (fuDocument.HasFile)
+                {
+                    item.Document = fuDocument;
+                }
+
+                _list.Add(item);
+            }
+            if (chkSelect.Checked == true)
+            {
+                item = new Income_Declaration();
+                item.SOI_ID = Convert.ToDouble(hfSOI_ID.Value);
+                item.Amount = Convert.ToDouble(txtAmount.Text);
+                if (fuDocument.HasFile)
+                {
+                    item.Document = fuDocument;
+                }
+                _list.Add(item);
+            }
+        }
+        return _list;
+    }
+
+    //public DataTable Deduction()
+    //{
+    //    DataTable dt = new DataTable();
+    //    DataRow dr = null;  //
+
+    //    dt.Columns.Add("Ded_ID", typeof(double));
+    //    dt.Columns.Add("Amount", typeof(double));
+    //    dt.Columns.Add("ParSCitz", typeof(string));
+
+    //    foreach (GridViewRow gvr in gvInvestment.Rows)
+    //    {
+    //        CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+    //        HiddenField hfDed_ID = (HiddenField)gvr.FindControl("hfDed_ID");
+    //        TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount"); 
+    //        Label lblAmount = (Label)gvr.FindControl("lblAmount");
+    //        CheckBox chkParSCitz = (CheckBox)gvr.FindControl("chkParSCitz");
+    //        HiddenField hdnCode = (HiddenField)gvr.FindControl("hdnCode");
+
+    //        if (hdnCode.Value == "80C1")
+    //        {
+    //            dr = dt.NewRow();
+    //            dr["Ded_ID"] = Convert.ToDouble(hfDed_ID.Value);
+    //            dr["Amount"] = Convert.ToDouble(lblAmount.Text);
+    //            dr["ParSCitz"] = "N";
+    //            dt.Rows.Add(dr);
+    //        }
+
+    //        if (chkSelect.Checked == true)
+    //        {
+    //            dr = dt.NewRow();
+    //            dr["Ded_ID"] = Convert.ToDouble(hfDed_ID.Value);
+    //            dr["Amount"] = Convert.ToDouble(txtAmount.Text);
+        //        if (chkParSCitz.Checked)
+        //        {
+        //            dr["ParSCitz"] = "Y";
+        //        }
+        //        else
+        //        {
+        //            dr["ParSCitz"] = "N";
+        //        }
+        //        dt.Rows.Add(dr);
+        //    }
+        //}
+
+    //    return dt;
+    //}
+
+    //------mrmall rrr -----
+
+    public List<Deduction_Declaration> Deduct_Insert()
+    {
+        List<Deduction_Declaration> _list = new List<Deduction_Declaration>();
+        Deduction_Declaration item = null;
+        foreach (GridViewRow gvr in gvInvestment.Rows)
+        {
+            CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+            HiddenField hfDed_ID = (HiddenField)gvr.FindControl("hfDed_ID");
+            TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount");
+            Label lblAmount = (Label)gvr.FindControl("lblAmount");
+            CheckBox chkParSCitz = (CheckBox)gvr.FindControl("chkParSCitz");
+            HiddenField hdnCode = (HiddenField)gvr.FindControl("hdnCode");
+            FileUpload fuDocument = (FileUpload)gvr.FindControl("fuUploadDocument");
+
+
+            if (hdnCode.Value == "80C1")
+            {
+                item = new Deduction_Declaration();
+                item.Ded_ID = Convert.ToDouble(hfDed_ID.Value);
+                item.Amount= Convert.ToDouble(lblAmount.Text);
+                item.ParSCitz = "N";
+                 _list.Add(item);
+            }
+
+            if (chkSelect.Checked == true )
+            {
+                item = new Deduction_Declaration();
+                item.Ded_ID = Convert.ToDouble(hfDed_ID.Value);
+                item.Amount = Convert.ToDouble(txtAmount.Text);
+                if (fuDocument.HasFile)
+                {
+                    item.Document = fuDocument;
+                }
+
+                if (chkParSCitz.Checked)
+                {
+                    item.ParSCitz = "Y";
+                }
+                else
+                {
+                    item.ParSCitz = "N";
+                }              
+                _list.Add(item);
+
+            }
+        }
+        return _list;
+    }
+
+    //----mrmall rrr end
+
+    public DataTable Perquisites()
+    {
+        DataTable dt = new DataTable();
+        DataRow dr = null;  //
+
+        dt.Columns.Add("PRQ_ID", typeof(double));
+        dt.Columns.Add("Amount", typeof(double));
+
+        foreach (GridViewRow gvr in gvPerquisites.Rows)
+        {
+            CheckBox chkSelect = (CheckBox)gvr.FindControl("chkSelect");
+            HiddenField hfDed_ID = (HiddenField)gvr.FindControl("hfPRQ_ID");
+            TextBox txtAmount = (TextBox)gvr.FindControl("txtAmount");
+            if (chkSelect.Checked == true)
+            {
+                dr = dt.NewRow();
+                dr["PRQ_ID"] = Convert.ToDouble(hfDed_ID.Value);
+                dr["Amount"] = Convert.ToDouble(txtAmount.Text);
+                dt.Rows.Add(dr);
+            }
+        }
+
+        return dt;
+    }
+
+    protected void btnSubmit_Click(object sender, EventArgs e)
+    {
+        Deduction_Declaration item = null;
+        ErrorContainer.Visible = true;
+        try
+        {
+            //DataTable dtAllow = Allow();
+            //DataTable dtIncome = Income();
+            //DataTable dtDeduct = Deduction();
+
+            DataTable dtPerquisites = Perquisites();
+            List<Allowance_Declaration> dtAllow = Allow_Insert();
+            List<Income_Declaration> dtIncome = Income_Insert();
+            List<Deduction_Declaration> dtDeduct = Deduct_Insert();
+
+            string Is_Parent_SrCitz = "N";
+
+            if (dtDeduct.Count > 0)
+            {
+                //DataView dvDed = dtDeduct.DefaultView;
+                //dvDed.RowFilter = "ParSCitz='Y'";
+
+                foreach (Deduction_Declaration dd in dtDeduct)
+                {
+                    if (dd.chkParSCitz == "Y")
+                    {
+                        Is_Parent_SrCitz = "Y";
+                    }
+                }
+                //if (dvDed.ToTable().Rows.Count > 0) 
+                //{
+                //      Is_Parent_SrCitz = "Y";
+                //}
+            }
+
+            decimal result = 0;
+            if (Session["update"].ToString() == ViewState["update"].ToString())
+            {
+                if (dtIncome.Count > 0)
+                {
+                    result = Tax.Insert_Employee_Tax_Declaration(Convert.ToString(lblFinYear.Text), Convert.ToString(hdnFrom.Value), Convert.ToString(hdnTo.Value), Convert.ToDouble(ddlResidence.SelectedValue), Session["Employee_Code"].ToString(), fuUploadDocument, dtAllow, dtIncome, dtDeduct, dtPerquisites, Is_Parent_SrCitz);
+                   
+                        if (result > 0)
+                        {
+                            Msg.ShowMessage("Record Inserted Successfully.", null, ErrorContainer, MyMessage, "Success");
+                            Fill_ITDeductionForm();
+                            Session["update"] = Server.UrlEncode(DateTime.Now.ToString());
+                            hdnETAX_ID.Value = result.ToString();
+                            hdnEmpCode.Value = Session["Employee_Code"].ToString();
+                            btnSubmit.Visible = false;
+
+                            //Added by pramesh,25-11-2022
+                            Page.ClientScript.RegisterStartupScript(this.GetType(), "CallMyFunction", "CallMethod()", true);
+                            //end
+                        }
+                        if (result == -1)
+                        {
+                            Msg.ShowMessage("Record Already Exists.", null, ErrorContainer, MyMessage, "Warning");
+                        }
+                    
+                      }
+                else
+                {
+                    Msg.ShowMessage("Please Insert Source of Income Details.", null, ErrorContainer, MyMessage, "Warning");
+                }
+            }
+            else
+            {
+                Msg.ShowMessage("Page reload not allowed.", null, ErrorContainer, MyMessage, "Warning");
+            }
+        }
+        catch (Exception ex)
+        {
+            Msg.ShowMessage("Error:  " + ex.Message, null, ErrorContainer, MyMessage, null);
+        }
+    }
+
+    protected void OnDataBound(object sender, EventArgs e)
+    {
+        for (int i = gvInvestment.Rows.Count - 1; i > 0; i--)
+        {
+            GridViewRow row = gvInvestment.Rows[i];
+            GridViewRow previousRow = gvInvestment.Rows[i - 1];
+            if (((Label)row.FindControl("lblSection")).Text == "80C")
+            {
+                if (row.Cells[5].Text == previousRow.Cells[5].Text)
+                {
+                    if (previousRow.Cells[5].RowSpan == 0)
+                    {
+                        if (row.Cells[5].RowSpan == 0)
+                        {
+                            previousRow.Cells[5].RowSpan += 2;
+                        }
+                        else
+                        {
+                            previousRow.Cells[5].RowSpan = row.Cells[5].RowSpan + 1;
+                        }
+                        row.Cells[5].Visible = false;
+                    }
+                }
+            }
+        }
+    }
+}
+
+___________________________________App_Code_Payroll_BAL_BAL_Employee_Tax_Declaration.cs_______________________________
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Web.UI.WebControls;
+using System.IO;
+
+/// <summary>
+/// Summary description for BAL_Employee_Tax_Declaration
+/// </summary>
+public class BAL_Employee_Tax_Declaration
+{
+    public BAL_Employee_Tax_Declaration()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public decimal Insert_Employee_Tax_Declaration(string FinancialYear, string FromDate, string ToDate, double ResidenceID, string Employee, FileUpload fuDocument, List<Allowance_Declaration> dtAllow, List<Income_Declaration> dtIncome, List<Deduction_Declaration> dtDeduct, DataTable dtPerquisites, string Is_Parent_SrCitz)
+    {
+        DAL_Employee_Tax_Declaration DalObj = new DAL_Employee_Tax_Declaration();
+          
+        try
+        {
+            return DalObj.Insert_Employee_Tax_Declaration(FinancialYear, FromDate, ToDate, ResidenceID, Employee, fuDocument, dtAllow, dtIncome, dtDeduct, dtPerquisites, Is_Parent_SrCitz);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            DalObj = null;
+        }
+    }
+
+    public DataSet ITDeduction_Form_Verify(string finYear, string EmpCode)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.ITDeduction_Form_Verify(finYear, EmpCode);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+
+    public int Insert_ITDeduction_Verification(DataTable dtIncome, DataTable dtAllow, DataTable dtInvest, DataTable dtPerq)
+    {
+        DAL_Employee_Tax_Declaration DalObj = new DAL_Employee_Tax_Declaration();
+
+        try
+        {
+            return DalObj.Insert_ITDeduction_Verification(dtIncome, dtAllow, dtInvest, dtPerq);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            DalObj = null;
+        }
+
+    }
+
+
+
+
+    public DataSet Select_ITDeduction_Form_Update(string finYear, string EmpCode)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Select_ITDeduction_Form_Update(finYear, EmpCode);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+
+
+    public int Insert_Tax_EmployeeTaxDeclaration_Lock(double ETAX_ID)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Insert_Tax_EmployeeTaxDeclaration_Lock(ETAX_ID);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+    //----------- Added By   : Ashish Kaslarpe
+    //----------- Added Date : 10/08/2016
+    //----------Description  : IT Declaration Update
+
+
+    public int Update_Employee_Tax_Declaration(string empCode, string finyr, double ETAX_ID, FileUpload fuDocument, List<Allowance_Declaration> dtAllow, List<Income_Declaration> dtIncome, List<Deduction_Declaration> dtDeduct, DataTable dtPerquisite, string EMP_LOCK_STATUS, string Is_Parent_SrCitz, FileUpload fuSignedDocument, string landlordPan)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Update_Employee_Tax_Declaration(empCode, finyr, ETAX_ID, fuDocument, dtAllow, dtIncome, dtDeduct, dtPerquisite, EMP_LOCK_STATUS, Is_Parent_SrCitz, fuSignedDocument, landlordPan);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+
+
+    public int Insert_Tax_EmployeeForm12BB(double ETAX_ID, string EMP_Address, double HRA_RentalAmt, string HRA_LandlordName, string HRA_LandlordPAN, string HRA_LandlordAddress
+          , string HRA_DocEvidence, double B_InterestAmt, string B_LenderName, string B_LenderPAN, string B_LenderAddress, string B_DocEvidence, string FatherName)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Insert_Tax_EmployeeForm12BB(ETAX_ID, EMP_Address, HRA_RentalAmt, HRA_LandlordName, HRA_LandlordPAN, HRA_LandlordAddress
+            , HRA_DocEvidence, B_InterestAmt, B_LenderName, B_LenderPAN, B_LenderAddress, B_DocEvidence, FatherName);
+
+
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+
+    }
+
+    public DataTable Select_Tax_EmployeeForm12BB(double ETAX_ID)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Select_Tax_EmployeeForm12BB(ETAX_ID);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+    public int Update_Tax_EmployeeForm12BB(double ETAX_ID, string EMP_Address, double HRA_RentalAmt, string HRA_LandlordName, string HRA_LandlordPAN, string HRA_LandlordAddress
+             , string HRA_DocEvidence, double B_InterestAmt, string B_LenderName, string B_LenderPAN, string B_LenderAddress, string B_DocEvidence, string FatherName)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Update_Tax_EmployeeForm12BB(ETAX_ID, EMP_Address, HRA_RentalAmt, HRA_LandlordName, HRA_LandlordPAN, HRA_LandlordAddress
+            , HRA_DocEvidence, B_InterestAmt, B_LenderName, B_LenderPAN, B_LenderAddress, B_DocEvidence, FatherName);
+
+
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+
+    }
+
+
+    public DataSet Select_ITDeclaration_List(string comp, string brcd, string dept, string empcode, string finYear)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Select_ITDeclaration_List(comp, brcd, dept, empcode, finYear);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+
+    public decimal Update_Tax_EmployeeTaxDeclaration_Taxable_Income(string FYear, string EmpCode, decimal Taxable_Income, decimal Tax, decimal Tax_Per_Month)
+    {
+        DAL_Employee_Tax_Declaration Ded = new DAL_Employee_Tax_Declaration();
+        try
+        {
+            return Ded.Update_Tax_EmployeeTaxDeclaration_Taxable_Income(FYear, EmpCode, Taxable_Income, Tax, Tax_Per_Month);
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            Ded = null;
+        }
+    }
+
+}
+
+___________________________________App_Code_Payroll_DAL_DAL_Employee_Tax_Declaration.cs_______________________________
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Web.UI.WebControls;
+using System.IO;
+
+
+/// <summary>
+/// Summary description for DAL_Employee_Tax_Declaration
+/// </summary>
+public class DAL_Employee_Tax_Declaration
+{
+    string connStr = ConfigurationManager.ConnectionStrings["DBConnHRM"].ToString();
+    SqlTransaction mytrans = null;
+
+    public DAL_Employee_Tax_Declaration()
+    {
+        //
+        // TODO: Add constructor logic here
+        //
+    }
+
+    public decimal Insert_Employee_Tax_Declaration(string FinancialYear, string FromDate, string ToDate, double ResidenceID, string Employee, FileUpload fuDocument, List<Allowance_Declaration> dtAllow, List<Income_Declaration> dtIncome, List<Deduction_Declaration> dtDeduct, DataTable dtPerquisites, string Is_Parent_SrCitz)
+    {
+
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+
+        try
+        {
+            string DMS_Path = ConfigurationManager.AppSettings["DMSPATH_Calyx"].ToString();
+            string fileFolderPath = "calyx\\TaxDeclaration\\";
+            string filepath = string.Empty, fileName = string.Empty, directoryPath = string.Empty, docName = string.Empty;
+            decimal ETAX_ID = 0;
+            //string DATE_TIME = DateTime.Now.ToString("YYYYMMddhhmmss");
+            string DATE_TIME = DateTime.Now.ToString("yyyyMMddHHmmss");
+            //Added by pramesh,14-10-2022
+            if (fuDocument != null)
+            {
+              if (fuDocument.HasFile)
+                {
+                    var ext = System.IO.Path.GetExtension(fuDocument.PostedFile.FileName).Substring(1);
+                    directoryPath = DMS_Path + fileFolderPath;
+                    docName = "InvestmentDeclaration";
+                    fileName = docName + "_" + FinancialYear + "_" + Employee + "_" + DATE_TIME + "." + ext;
+                    filepath = fileFolderPath + fileName;
+                }
+            }
+            //End
+
+            Cmd = new SqlCommand("usp_Insert_Tax_EmployeeTaxDeclaration", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+
+            SqlParameter sqlp = new SqlParameter();
+            sqlp = Cmd.Parameters.Add("@ETAX_ID", SqlDbType.Decimal);
+            sqlp.Direction = ParameterDirection.Output;
+
+            Cmd.Parameters.AddWithValue("@Financial_Yrs", FinancialYear);
+            Cmd.Parameters.AddWithValue("@From_Date", FromDate);
+            Cmd.Parameters.AddWithValue("@To_Date", ToDate);
+            Cmd.Parameters.AddWithValue("@RES_ID", ResidenceID);
+            Cmd.Parameters.AddWithValue("@Employee_Code", Employee);
+            Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+            Cmd.Parameters.AddWithValue("@Is_Parent_SrCitz", Is_Parent_SrCitz);
+            
+            Cmd.ExecuteNonQuery();
+
+            if (fuDocument != null)
+            {
+                if (fuDocument.HasFile)
+                {
+                    if (!Directory.Exists(directoryPath))
+                    {
+                        Directory.CreateDirectory(directoryPath);
+                    }
+                    fuDocument.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                }
+            }
+            ETAX_ID = Convert.ToDecimal(Cmd.Parameters["@ETAX_ID"].Value);
+
+            if (ETAX_ID < 0)
+            {
+                return ETAX_ID;
+            }
+            else
+            {
+                if (dtAllow.Count > 0)
+                {
+                    for (int i = 0; i < dtAllow.Count; i++)
+                    {  //Added by pramesh,12-10-2022
+                        filepath = string.Empty;
+                        if (dtAllow[i].Document != null)
+                        {
+                            if (dtAllow[i].Document.HasFile)
+                            {
+                                var ext = System.IO.Path.GetExtension(dtAllow[i].Document.PostedFile.FileName).Substring(1);
+                                directoryPath = DMS_Path + fileFolderPath;
+                                docName = dtAllow[i].DocName.Replace(" ", "").Replace("&", "");
+                                fileName = docName + "_" + FinancialYear + "_" + Employee + "." + ext;
+                                filepath = fileFolderPath + fileName;
+                            }
+                        }
+                        //End
+                        Cmd = new SqlCommand("usp_Insert_Tax_EmployeeAllowance_Dtl", Conn);
+                        Cmd.CommandType = CommandType.StoredProcedure;
+                        Cmd.Transaction = mytrans;
+
+                        Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                        Cmd.Parameters.AddWithValue("@Allow_ID", Convert.ToDouble(dtAllow[i].Allow_ID));
+                        Cmd.Parameters.AddWithValue("@AllowBySal", Convert.ToDouble(dtAllow[i].AllowBySal));
+                        Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtAllow[i].Amount));
+
+                        if (filepath != "")
+                        {
+                            Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                        }
+                        else
+                        {
+                            Cmd.Parameters.AddWithValue("@FILE_PATH", DBNull.Value);
+                        }
+                        Cmd.ExecuteNonQuery();
+
+                        if (dtAllow[i].Document != null)
+                        {
+                            if (dtAllow[i].Document.HasFile)
+                            {
+                                if (!Directory.Exists(directoryPath))
+                                {
+                                    Directory.CreateDirectory(directoryPath);
+                                }
+                                dtAllow[i].Document.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                            }
+                        }
+                    }
+                }
+
+                if (dtIncome.Count > 0)
+                {
+                    for (int i = 0; i < dtIncome.Count; i++)
+                    {
+                        filepath = string.Empty;
+                        //Added by pramesh,12-10-2022
+                        if (dtIncome[i].Document != null)
+                        {
+                            if (dtIncome[i].Document.HasFile)
+                            {
+                                var ext = System.IO.Path.GetExtension(dtIncome[i].Document.PostedFile.FileName).Substring(1);
+                                directoryPath = DMS_Path + fileFolderPath;
+                                fileName = "IncomeFromPrevCompany_" + FinancialYear + "_" + Employee + "_" + DATE_TIME + "." + ext;
+                                filepath = fileFolderPath + fileName;
+                            }
+                        }
+                        //End
+
+                        Cmd = new SqlCommand("usp_Insert_Tax_EmployeeIncome_Dtl", Conn);
+                        Cmd.CommandType = CommandType.StoredProcedure;
+                        Cmd.Transaction = mytrans;
+
+                        Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                        Cmd.Parameters.AddWithValue("@SOI_ID", Convert.ToDouble(dtIncome[i].SOI_ID));
+                        Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtIncome[i].Amount));
+
+                        if (filepath != "")
+                        {
+                            Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                        }
+                        else
+                        {
+                            Cmd.Parameters.AddWithValue("@FILE_PATH", DBNull.Value);
+                        }
+
+                        Cmd.ExecuteNonQuery();
+
+                        if (dtIncome[i].Document != null)
+                        {
+                            if (dtIncome[i].Document.HasFile)
+                            {
+                                if (!Directory.Exists(directoryPath))
+                                {
+                                    Directory.CreateDirectory(directoryPath);
+                                }
+                                dtIncome[i].Document.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                            }
+                        }
+                    }
+                }
+
+
+
+                if (dtDeduct.Count > 0)
+                 {
+                    for (int i = 0; i < dtDeduct.Count; i++)
+                    {
+                        filepath = string.Empty;
+
+                        if (dtDeduct[i].Document != null)
+                        {
+                            if (dtDeduct[i].Document.HasFile)
+                            {
+                                var ext = System.IO.Path.GetExtension(dtDeduct[i].Document.PostedFile.FileName).Substring(1);
+                                directoryPath = DMS_Path + fileFolderPath;
+                                fileName = "DeductFromPrevCompany_" + FinancialYear + "_" + Employee + "_" + DATE_TIME + "." + ext;
+                                filepath = fileFolderPath + fileName;
+                            }
+                        }
+
+                     
+                        Cmd = new SqlCommand("usp_Insert_Tax_EmployeeDeduction_Dtl", Conn);
+                        Cmd.CommandType = CommandType.StoredProcedure;
+                        Cmd.Transaction = mytrans;
+
+                        Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                        Cmd.Parameters.AddWithValue("@Ded_ID", Convert.ToDouble(dtDeduct[i].Ded_ID));
+                        Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtDeduct[i].Amount));
+
+ //--start------------added rrrr ---
+                    
+                        if (filepath != "")
+                        {
+                            Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                        }
+                        else
+                        {
+                            Cmd.Parameters.AddWithValue("@FILE_PATH", DBNull.Value);
+                        }
+//-----end
+                        Cmd.ExecuteNonQuery();
+
+                        if(dtDeduct[i].Document != null)
+                        {
+                            if (dtDeduct[i].Document.HasFile)
+                            {
+                                if (!Directory.Exists(directoryPath))
+                                {
+                                    Directory.CreateDirectory(directoryPath);
+                                }
+                                dtDeduct[i].Document.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                            }
+                        }
+                    }
+                }  
+
+
+                if (dtPerquisites.Rows.Count > 0)
+                {
+                    for (int i = 0; i < dtPerquisites.Rows.Count; i++)
+                    {
+                        Cmd = new SqlCommand("usp_Insert_Tax_EmployeePerquisites_Dtl", Conn);
+                        Cmd.CommandType = CommandType.StoredProcedure;
+                        Cmd.Transaction = mytrans;
+
+                        Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                        Cmd.Parameters.AddWithValue("@PRQ_ID", Convert.ToDouble(dtPerquisites.Rows[i]["PRQ_ID"]));
+                        Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtPerquisites.Rows[i]["Amount"]));
+
+                        Cmd.ExecuteNonQuery();
+                    }
+                }
+
+                Cmd = new SqlCommand("usp_Insert_Tax_EmployeeTAXDeclaration_Log", Conn);
+                Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Transaction = mytrans;
+                Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                Cmd.Parameters.AddWithValue("@STATUS", "N");
+                Cmd.Parameters.AddWithValue("@DESCRIPTION", "New TAX Declaration");
+                Cmd.Parameters.AddWithValue("@ADDBY", HttpContext.Current.Session["LogIn_Code"].ToString());
+                Cmd.ExecuteNonQuery();
+
+            }
+            mytrans.Commit();
+            return ETAX_ID;
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+    }
+
+
+    public DataSet ITDeduction_Form_Verify(string finYear, string EmpCode)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_Select_TaxDeclaration_To_Verify", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet ds = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@Employee_Code", EmpCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FinanceYear", finYear);
+            dAd.Fill(ds);
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            ds.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+    public int Insert_Tax_EmployeeTaxDeclaration_Lock(double ETAX_ID)
+    {
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+
+        try
+        {
+            Cmd = new SqlCommand("usp_Insert_Tax_EmployeeTaxDeclaration_Lock", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+
+            Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+            Cmd.Parameters.AddWithValue("@LockBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+            Cmd.ExecuteNonQuery();
+            mytrans.Commit();
+            return 1;
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+
+    }
+
+    public int Insert_ITDeduction_Verification(DataTable dtIncome, DataTable dtAllow, DataTable dtInvest, DataTable dtPerq)
+    {
+
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+
+        try
+        {
+
+            //---- Update Tbl_Tax_EmployeeIncome_Dtl
+            if (dtIncome.Rows.Count > 0)
+            {
+
+                for (int i = 0; i < dtIncome.Rows.Count; i++)
+                {
+                    Cmd = new SqlCommand("usp_Insert_Verify_Tax_EmployeeIncome_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(dtIncome.Rows[i]["ETAX_ID"]));
+                    Cmd.Parameters.AddWithValue("@SOI_ID", Convert.ToDouble(dtIncome.Rows[i]["SOI_ID"]));
+                    Cmd.Parameters.AddWithValue("@EINCOME_ID", Convert.ToDouble(dtIncome.Rows[i]["EINCOME_ID"]));
+
+                    Cmd.Parameters.AddWithValue("@VerifiedAmount", Convert.ToDouble(dtIncome.Rows[i]["VerifiedAmount"]));
+                    Cmd.Parameters.AddWithValue("@VerifiedBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+
+                    //Cmd.Parameters.AddWithValue("@VerifiedBy", "CAL0021");
+
+                    Cmd.ExecuteNonQuery();
+                }
+            }
+
+            //----Update Tbl_Tax_EmployeeAllowance_Dtl----
+            if (dtAllow.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtAllow.Rows.Count; i++)
+                {
+                    Cmd = new SqlCommand("usp_Insert_Verify_Tax_EmployeeAllowance_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(dtAllow.Rows[i]["ETAX_ID"]));
+                    Cmd.Parameters.AddWithValue("@Allow_ID", Convert.ToDouble(dtAllow.Rows[i]["Allow_ID"]));
+                    Cmd.Parameters.AddWithValue("@EAllow_ID", Convert.ToDouble(dtAllow.Rows[i]["EAllow_ID"]));
+                    Cmd.Parameters.AddWithValue("@AllowBySal", Convert.ToDouble(dtAllow.Rows[i]["AllowBySal"]));
+                    Cmd.Parameters.AddWithValue("@VerifiedAmount", Convert.ToDouble(dtAllow.Rows[i]["VerifiedAmount"]));
+                    Cmd.Parameters.AddWithValue("@VerifiedBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+                    Cmd.Parameters.AddWithValue("@ReceivedAmount", Convert.ToDouble(dtAllow.Rows[i]["ReceivedAmount"]));
+
+                    //Cmd.Parameters.AddWithValue("@VerifiedBy", "CAL0021");
+
+                    Cmd.ExecuteNonQuery();
+                }
+            }
+            //------- Update Tbl_Tax_EmployeeDeduction_Dtl
+            if (dtInvest.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtInvest.Rows.Count; i++)
+                {
+                    Cmd = new SqlCommand("usp_Insert_Verify_Tax_EmployeeDeduction_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(dtInvest.Rows[i]["ETAX_ID"]));
+                    Cmd.Parameters.AddWithValue("@Ded_ID", Convert.ToDouble(dtInvest.Rows[i]["Ded_ID"]));
+                    Cmd.Parameters.AddWithValue("@EDed_ID", Convert.ToDouble(dtInvest.Rows[i]["EDed_ID"]));
+
+                    Cmd.Parameters.AddWithValue("@VerifiedAmount", Convert.ToDouble(dtInvest.Rows[i]["VerifiedAmount"]));
+                    Cmd.Parameters.AddWithValue("@VerifiedBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+                    Cmd.Parameters.AddWithValue("@ReceivedAmount", Convert.ToDouble(dtInvest.Rows[i]["ReceivedAmount"]));
+
+                    //Cmd.Parameters.AddWithValue("@VerifiedBy", "CAL0021");
+
+                    Cmd.ExecuteNonQuery();
+                }
+            }
+
+
+
+            if (dtPerq.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtPerq.Rows.Count; i++)
+                {
+                    Cmd = new SqlCommand("usp_Insert_Verify_Tax_Employeeperquisites_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(dtPerq.Rows[i]["ETAX_ID"]));
+                    Cmd.Parameters.AddWithValue("@PRQ_ID", Convert.ToDouble(dtPerq.Rows[i]["PRQ_ID"]));
+                    Cmd.Parameters.AddWithValue("@EPRQ_ID", Convert.ToDouble(dtPerq.Rows[i]["EPRQ_ID"]));
+
+                    Cmd.Parameters.AddWithValue("@VerifiedAmount", Convert.ToDouble(dtPerq.Rows[i]["VerifiedAmount"]));
+                    Cmd.Parameters.AddWithValue("@VerifiedBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+                    Cmd.Parameters.AddWithValue("@ReceivedAmount", Convert.ToDouble(dtPerq.Rows[i]["ReceivedAmount"]));
+
+                    //Cmd.Parameters.AddWithValue("@VerifiedBy", "CAL0021");
+
+                    Cmd.ExecuteNonQuery();
+                }
+            }
+
+
+            Cmd = new SqlCommand("usp_Insert_Tax_EmployeeTAXDeclaration_Log", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+            Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(dtIncome.Rows[0]["ETAX_ID"]));
+            Cmd.Parameters.AddWithValue("@STATUS", "V");
+            Cmd.Parameters.AddWithValue("@DESCRIPTION", "Verify TAX Declaration");
+            Cmd.Parameters.AddWithValue("@ADDBY", HttpContext.Current.Session["LogIn_Code"].ToString());
+            Cmd.ExecuteNonQuery();
+
+            mytrans.Commit();
+            return 1;
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+
+    }
+
+    public DataSet Select_ITDeduction_Form_Update(string finYear, string EmpCode)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_Select_TaxDeclaration_For_Update", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet ds = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@Employee_Code", EmpCode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FinanceYear", finYear);
+            dAd.Fill(ds);
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            ds.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public int Update_Employee_Tax_Declaration(string empCode, string finyr, double ETAX_ID, FileUpload fuDocument, List<Allowance_Declaration> dtAllow, List<Income_Declaration> dtIncome, List<Deduction_Declaration> dtDeduct, DataTable dtPerquisite, string EMP_LOCK_STATUS, string Is_Parent_SrCitz, FileUpload fuSignedDocument, string landlordPan)
+    {
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+
+        string DMS_Path = ConfigurationManager.AppSettings["DMSPATH_Calyx"].ToString();
+        string fileFolderPath = "calyx\\TaxDeclaration\\";
+        string filepath = string.Empty, fileName = string.Empty, directoryPath = string.Empty, docName = string.Empty;
+        string signedfilepath = string.Empty, signedfileName = string.Empty, signeddirectoryPath = string.Empty, signeddocName = string.Empty;
+        string DATE_TIME = DateTime.Now.ToString("yyyyMMddhhmmss");
+        try
+        {
+           if (Convert.ToDouble(ETAX_ID) > 0)
+            {
+                //Added by pramesh,12-10-2022
+                filepath = string.Empty;
+                
+                if (fuDocument != null)
+                {
+                    if (fuDocument.HasFile)
+                    {
+                        var ext = System.IO.Path.GetExtension(fuDocument.PostedFile.FileName).Substring(1);
+                        directoryPath = DMS_Path + fileFolderPath;
+                        docName = "InvestmentDeclaration";
+                        fileName = docName + "_" + finyr + "_" + empCode + "_" + DATE_TIME + "." + ext;
+                        filepath = fileFolderPath + fileName;
+                    }
+                }
+                //End
+
+                //Added by pramesh,26-11-2022
+                signedfilepath = string.Empty;
+                if (fuSignedDocument != null)
+                {
+                    if (fuSignedDocument.HasFile)
+                    {
+                        var ext = System.IO.Path.GetExtension(fuSignedDocument.PostedFile.FileName).Substring(1);
+                        signeddirectoryPath = DMS_Path + fileFolderPath;
+                        signeddocName = "signedcopy";
+                        signedfileName = signeddocName + "_" + finyr + "_" + empCode + "." + ext;
+                        signedfilepath = fileFolderPath + signedfileName;
+                    }
+                }
+                //End
+
+                Cmd = new SqlCommand("usp_Update_Tax_EmployeeTaxDeclaration_File", Conn);
+                Cmd.CommandType = CommandType.StoredProcedure;
+                Cmd.Transaction = mytrans;
+                Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                Cmd.Parameters.AddWithValue("@EMP_LOCK_STATUS", EMP_LOCK_STATUS);
+                Cmd.Parameters.AddWithValue("@Is_Parent_SrCitz", Is_Parent_SrCitz);
+                Cmd.Parameters.AddWithValue("@SIGNED_COPY_PATH", signedfilepath);
+                Cmd.Parameters.AddWithValue("@LANDLORD_PAN", landlordPan);
+                Cmd.ExecuteNonQuery();
+
+                if (fuDocument != null)
+                {
+                    if (fuDocument.HasFile)
+                    {
+                        if (!Directory.Exists(directoryPath))
+                        {
+                            Directory.CreateDirectory(directoryPath);
+                        }
+                        fuDocument.PostedFile.SaveAs(directoryPath + fileName);   
+                    }
+                }
+
+                if (fuSignedDocument != null)
+                {
+                    if (fuSignedDocument.HasFile)
+                    {
+                        if (!Directory.Exists(signeddirectoryPath))
+                        {
+                            Directory.CreateDirectory(signeddirectoryPath);
+                        }
+                        fuSignedDocument.PostedFile.SaveAs(signeddirectoryPath + signedfileName);  
+                    }
+                }
+            }
+
+            if (dtAllow.Count > 0)
+            {
+                for (int i = 0; i < dtAllow.Count; i++)
+                { //Added by pramesh,12-10-2022
+                    filepath = string.Empty;
+                    if (dtAllow[i].Document != null)
+                    {
+                        if (dtAllow[i].Document.HasFile)
+                        {
+                            var ext = System.IO.Path.GetExtension(dtAllow[i].Document.PostedFile.FileName).Substring(1);
+                            directoryPath = DMS_Path + fileFolderPath;
+                            docName = dtAllow[i].DocName.Replace(" ", "").Replace("&", "");
+                            fileName = docName + "_" + finyr + "_" + empCode + "_" + DATE_TIME + "." + ext;
+                            filepath = fileFolderPath + fileName;
+                        }
+                    }
+                    //End
+
+                    Cmd = new SqlCommand("usp_Insert_Tax_EmployeeAllowance_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                    Cmd.Parameters.AddWithValue("@Allow_ID", Convert.ToDouble(dtAllow[i].Allow_ID));
+                    Cmd.Parameters.AddWithValue("@AllowBySal", Convert.ToDouble(dtAllow[i].AllowBySal));
+                    Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtAllow[i].Amount));
+
+                    if (dtAllow[i].EAllow_ID != 0)
+                    {
+                        Cmd.Parameters.AddWithValue("@EAllow_ID", Convert.ToDouble(dtAllow[i].EAllow_ID));
+                    }
+                    else
+                    {
+                        Cmd.Parameters.AddWithValue("@EAllow_ID", DBNull.Value);
+                    }
+
+                    Cmd.Parameters.AddWithValue("@Type", Convert.ToString(dtAllow[i].Type));
+                    if (filepath != "")
+                    {
+                        Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                    }
+                    else
+                    {
+                        Cmd.Parameters.AddWithValue("@FILE_PATH", DBNull.Value);
+                    }
+                    Cmd.ExecuteNonQuery();
+
+                    if (dtAllow[i].Document != null)
+                    {
+                        if (dtAllow[i].Document.HasFile)
+                        {
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+                            dtAllow[i].Document.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                        }
+                    }
+                }
+            }
+            
+            if (dtIncome.Count > 0)
+            {
+                for (int i = 0; i < dtIncome.Count; i++)
+                {
+                    filepath = string.Empty;
+                    //Added by pramesh,12-10-2022
+                    if (dtIncome[i].Document != null)
+                    {
+                        if (dtIncome[i].Document.HasFile)
+                        {
+                            var ext = System.IO.Path.GetExtension(dtIncome[i].Document.PostedFile.FileName).Substring(1);
+                            directoryPath = DMS_Path + fileFolderPath;
+                            fileName = "IncomeFromPrevCompany_" + finyr + "_" + empCode + "_" + DATE_TIME + "." + ext;
+                            filepath = fileFolderPath + fileName;
+                        }
+                    }
+                    //End
+
+                    Cmd = new SqlCommand("usp_Insert_Tax_EmployeeIncome_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                    Cmd.Parameters.AddWithValue("@SOI_ID", dtIncome[i].SOI_ID);
+                    Cmd.Parameters.AddWithValue("@Amount", dtIncome[i].Amount);
+
+                    if (dtIncome[i].EINCOME_ID != 0)
+                    {
+                        Cmd.Parameters.AddWithValue("@EINCOME_ID", dtIncome[i].EINCOME_ID);
+                    }
+                    Cmd.Parameters.AddWithValue("@Type", dtIncome[i].Type);
+                    if (filepath != "")
+                    {
+                        Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                    }
+                    else
+                    {
+                        Cmd.Parameters.AddWithValue("@FILE_PATH", DBNull.Value);
+                    }
+
+                    Cmd.ExecuteNonQuery();
+
+                    if (dtIncome[i].Document != null)
+                    {
+                        if (dtIncome[i].Document.HasFile)
+                        {
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+                            dtIncome[i].Document.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                        }
+                    }
+                }
+            }
+
+
+            if (dtDeduct.Count > 0)
+            {
+                for (int i = 0; i < dtDeduct.Count; i++)
+                {                
+                    //Added by pramesh,12-10-2022
+                    filepath = string.Empty;
+                    if (dtDeduct[i].Document != null)
+                    {
+                        if (dtDeduct[i].Document.HasFile)
+                        {                        
+                            var ext = System.IO.Path.GetExtension(dtDeduct[i].Document.PostedFile.FileName).Substring(1);
+                            directoryPath = DMS_Path + fileFolderPath;
+                           // docName = dtDeduct[i].DocName.Replace(" ", "").Replace("&", "");
+                            docName = "UpdatedInvDec";
+                            fileName = docName + "_" + finyr + "_" + empCode + "_" + DATE_TIME + "." + ext;
+                            filepath = fileFolderPath + fileName;
+                        }
+                    }
+                    //End
+
+                    Cmd = new SqlCommand("usp_Insert_Tax_EmployeeDeduction_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                    Cmd.Parameters.AddWithValue("@Ded_ID", Convert.ToDouble(dtDeduct[i].Ded_ID));
+                    Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtDeduct[i].Amount));
+
+                    if (dtDeduct[i].EDed_ID != null)
+                    {
+                        Cmd.Parameters.AddWithValue("@EDed_ID", Convert.ToDouble(dtDeduct[i].EDed_ID));
+                    }
+                    Cmd.Parameters.AddWithValue("@Type", Convert.ToString(dtDeduct[i].Type));
+
+                    if (filepath != "")
+                    {
+                        Cmd.Parameters.AddWithValue("@FILE_PATH", filepath);
+                    }
+                    else
+                    {
+                        Cmd.Parameters.AddWithValue("@FILE_PATH", DBNull.Value);
+                    }
+
+                    Cmd.ExecuteNonQuery();
+                    if (dtDeduct[i].Document != null)
+                    {
+                        if (dtDeduct[i].Document.HasFile)
+                        {
+                            if (!Directory.Exists(directoryPath))
+                            {
+                                Directory.CreateDirectory(directoryPath);
+                            }
+                            dtDeduct[i].Document.PostedFile.SaveAs(directoryPath + fileName);  // Save pdf File
+                        }
+                    }
+
+                }
+            }
+
+
+            if (dtPerquisite.Rows.Count > 0)
+            {
+                for (int i = 0; i < dtPerquisite.Rows.Count; i++)
+                {
+                    Cmd = new SqlCommand("usp_Insert_Tax_EmployeePerquisites_Dtl", Conn);
+                    Cmd.CommandType = CommandType.StoredProcedure;
+                    Cmd.Transaction = mytrans;
+
+                    Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+                    if (dtPerquisite.Rows[i]["EPRQ_ID"] != DBNull.Value)
+                    {
+                        Cmd.Parameters.AddWithValue("@EPRQ_ID", Convert.ToDouble(dtPerquisite.Rows[i]["EPRQ_ID"]));
+                    }
+                    Cmd.Parameters.AddWithValue("@PRQ_ID", Convert.ToDouble(dtPerquisite.Rows[i]["PRQ_ID"]));
+                    Cmd.Parameters.AddWithValue("@Amount", Convert.ToDouble(dtPerquisite.Rows[i]["Amount"]));
+                    Cmd.Parameters.AddWithValue("@Type", Convert.ToString(dtPerquisite.Rows[i]["Type"]));
+                    Cmd.ExecuteNonQuery();
+                }
+            }
+
+
+            Cmd = new SqlCommand("usp_Insert_Tax_EmployeeTAXDeclaration_Log", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+
+            Cmd.Parameters.AddWithValue("@ETAX_ID", Convert.ToDouble(ETAX_ID));
+            Cmd.Parameters.AddWithValue("@STATUS", "U");
+            Cmd.Parameters.AddWithValue("@DESCRIPTION", "Update TAX Declaration");
+            //Cmd.Parameters.AddWithValue("@ADDBY","CAL0054");
+            Cmd.Parameters.AddWithValue("@ADDBY", HttpContext.Current.Session["LogIn_Code"].ToString());
+
+            Cmd.ExecuteNonQuery();
+
+
+            mytrans.Commit();
+            return 1;
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+
+
+    }
+
+
+    public int Insert_Tax_EmployeeForm12BB(double ETAX_ID, string EMP_Address, double HRA_RentalAmt, string HRA_LandlordName, string HRA_LandlordPAN, string HRA_LandlordAddress
+         , string HRA_DocEvidence, double B_InterestAmt, string B_LenderName, string B_LenderPAN, string B_LenderAddress, string B_DocEvidence, string @FatherName)
+    {
+
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+        decimal _ID = 0;
+        try
+        {
+            Cmd = new SqlCommand("usp_Insert_Tax_EmployeeForm12BB", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+            SqlParameter sqlp = new SqlParameter();
+
+            sqlp = Cmd.Parameters.Add("@ID", SqlDbType.Decimal);
+            sqlp.Direction = ParameterDirection.Output;
+
+            Cmd.Parameters.AddWithValue("@ETAX_ID", ETAX_ID);
+            Cmd.Parameters.AddWithValue("@EMP_Address", EMP_Address);
+            Cmd.Parameters.AddWithValue("@HRA_RentalAmt", HRA_RentalAmt);
+            Cmd.Parameters.AddWithValue("@HRA_LandlordName", HRA_LandlordName);
+            Cmd.Parameters.AddWithValue("@HRA_LandlordPAN", HRA_LandlordPAN);
+            Cmd.Parameters.AddWithValue("@HRA_LandlordAddress", HRA_LandlordAddress);
+            Cmd.Parameters.AddWithValue("@HRA_DocEvidence", HRA_DocEvidence);
+            Cmd.Parameters.AddWithValue("@B_InterestAmt", B_InterestAmt);
+            Cmd.Parameters.AddWithValue("@B_LenderName", B_LenderName);
+            Cmd.Parameters.AddWithValue("@B_LenderPAN", B_LenderPAN);
+            Cmd.Parameters.AddWithValue("@B_LenderAddress", B_LenderAddress);
+            Cmd.Parameters.AddWithValue("@B_DocEvidence", B_DocEvidence);
+            Cmd.Parameters.AddWithValue("@AddedBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+            Cmd.Parameters.AddWithValue("@FatherName", FatherName);
+            Cmd.ExecuteNonQuery();
+            _ID = Convert.ToDecimal(Cmd.Parameters["@ID"].Value);
+            mytrans.Commit();
+            if (_ID > 0)
+                return 1;
+            else
+                return -1;
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+
+    }
+
+    public DataTable Select_Tax_EmployeeForm12BB(double ETAX_ID)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = new SqlDataAdapter("USP_SELECT_Tax_EmployeeForm12BB", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet ds = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@ETAX_ID", ETAX_ID);
+            dAd.Fill(ds);
+            return ds.Tables[0];
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            ds.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public int Update_Tax_EmployeeForm12BB(double ETAX_ID, string EMP_Address, double HRA_RentalAmt, string HRA_LandlordName, string HRA_LandlordPAN, string HRA_LandlordAddress
+           , string HRA_DocEvidence, double B_InterestAmt, string B_LenderName, string B_LenderPAN, string B_LenderAddress, string B_DocEvidence, string FatherName)
+    {
+
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+
+        try
+        {
+            Cmd = new SqlCommand("usp_Update_Tax_EmployeeForm12BB", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+            SqlParameter sqlp = new SqlParameter();
+            Cmd.Parameters.AddWithValue("@ETAX_ID", ETAX_ID);
+            Cmd.Parameters.AddWithValue("@EMP_Address", EMP_Address);
+            Cmd.Parameters.AddWithValue("@HRA_RentalAmt", HRA_RentalAmt);
+            Cmd.Parameters.AddWithValue("@HRA_LandlordName", HRA_LandlordName);
+            Cmd.Parameters.AddWithValue("@HRA_LandlordPAN", HRA_LandlordPAN);
+            Cmd.Parameters.AddWithValue("@HRA_LandlordAddress", HRA_LandlordAddress);
+            Cmd.Parameters.AddWithValue("@HRA_DocEvidence", HRA_DocEvidence);
+            Cmd.Parameters.AddWithValue("@B_InterestAmt", B_InterestAmt);
+            Cmd.Parameters.AddWithValue("@B_LenderName", B_LenderName);
+            Cmd.Parameters.AddWithValue("@B_LenderPAN", B_LenderPAN);
+            Cmd.Parameters.AddWithValue("@B_LenderAddress", B_LenderAddress);
+            Cmd.Parameters.AddWithValue("@B_DocEvidence", B_DocEvidence);
+            Cmd.Parameters.AddWithValue("@AddedBy", HttpContext.Current.Session["LogIn_Code"].ToString());
+            Cmd.Parameters.AddWithValue("@FatherName", FatherName);
+
+            Cmd.ExecuteNonQuery();
+            mytrans.Commit();
+
+            return 1;
+
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+
+    }
+
+
+    public DataSet Select_ITDeclaration_List(string comp, string brcd, string dept, string empcode, string finYear)
+    {
+        SqlConnection conn = new SqlConnection(connStr);
+        SqlDataAdapter dAd = new SqlDataAdapter("usp_Select_ITDeclaration_List_To_Verify", conn);
+        dAd.SelectCommand.CommandType = CommandType.StoredProcedure;
+        DataSet ds = new DataSet();
+        try
+        {
+            dAd.SelectCommand.Parameters.AddWithValue("@Comp_Code", comp);
+            dAd.SelectCommand.Parameters.AddWithValue("@branch", brcd);
+            dAd.SelectCommand.Parameters.AddWithValue("@dept", dept);
+            dAd.SelectCommand.Parameters.AddWithValue("@emp", empcode);
+            dAd.SelectCommand.Parameters.AddWithValue("@FinanceYear", finYear);
+            dAd.Fill(ds);
+            return ds;
+        }
+        catch
+        {
+            throw;
+        }
+        finally
+        {
+            ds.Dispose();
+            dAd.Dispose();
+            conn.Close();
+            conn.Dispose();
+        }
+    }
+
+    public decimal Update_Tax_EmployeeTaxDeclaration_Taxable_Income(string FYear, string EmpCode, decimal Taxable_Income, decimal Tax, decimal Tax_Per_Month)
+    {
+        SqlConnection Conn = new SqlConnection(connStr);
+        Conn.Open();
+        mytrans = Conn.BeginTransaction();
+        SqlCommand Cmd = null;
+
+        try
+        {
+            Cmd = new SqlCommand("usp_Update_Tax_EmployeeTaxDeclaration_Taxable_Income", Conn);
+            Cmd.CommandType = CommandType.StoredProcedure;
+            Cmd.Transaction = mytrans;
+
+            Cmd.Parameters.AddWithValue("@FINYEAR", FYear);
+            Cmd.Parameters.AddWithValue("@EmpCode", EmpCode);
+
+            Cmd.Parameters.AddWithValue("@Taxable_Income", Taxable_Income);
+            Cmd.Parameters.AddWithValue("@Tax", Tax);
+            Cmd.Parameters.AddWithValue("@Tax_Per_Month", Tax_Per_Month);
+
+            Cmd.ExecuteNonQuery();
+
+            mytrans.Commit();
+            return 1;
+        }
+        catch
+        {
+            mytrans.Rollback();
+            throw;
+        }
+        finally
+        {
+            Cmd.Dispose();
+            Conn.Close();
+            Conn.Dispose();
+        }
+    }
+
+}
