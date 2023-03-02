@@ -1,0 +1,60 @@
+<script type="text/javascript" language="javascript">
+        $(document).ready(function () {
+
+            $("#<%=ddlLinerName.ClientID %>").change(function () {
+
+                $.ajax({
+                    type: "POST",
+                    url: "LinerDetails.aspx/Fill_LinerDetail",
+                    data: "{'Liner_Code':'" + $("select[id*=<%=ddlLinerName.ClientID %>]").val() + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    success: function (data) {
+
+                        if (data.d.length > 0) {
+                            $("#<%=txtLinerAddress.ClientID %>").val(data.d[0].Address);
+                            $("#<%=txtLinerCode.ClientID %>").val(data.d[0].LinCode);
+                        }
+                        else {
+                            $("#<%=txtLinerAddress.ClientID %>").val('');
+                            $("#<%=txtLinerCode.ClientID %>").val('');
+                        }
+                    },
+                    error: function (response) { alert(response.status); }
+                });
+            });
+
+            $("#<%=txtExhangeRate.ClientID %>").blur(Calculate);
+            $("#<%=txtSeaFreight.ClientID %>").blur(Calculate);
+            $("#<%=txtAdvancePaid.ClientID %>").blur(Calculate);
+
+            function Calculate() {
+
+                var RSPerBox = 0;
+                var Balance = 0;
+                var ExchangeRate = $("#<%=txtExhangeRate.ClientID %>").val();
+                var SeaFreight = $("#<%=txtSeaFreight.ClientID %>").val();
+                var Advance = $("#<%=txtAdvancePaid.ClientID %>").val();
+
+                if (isNaN(ExchangeRate) || ExchangeRate == '') {
+                    ExchangeRate = 0;
+                }
+                if (isNaN(SeaFreight) || SeaFreight == '') {
+                    SeaFreight = 0;
+                }
+                if (isNaN(Advance) || Advance == '') {
+                    Advance = 0;
+                }
+                RSPerBox = parseFloat(ExchangeRate) * parseFloat(SeaFreight);
+
+                Balance = parseFloat(SeaFreight) - parseFloat(Advance);
+
+                $("#<%=txtRsPerTeu.ClientID %>").val(parseFloat(RSPerBox).toFixed(2));
+                $("#<%=txtBalance.ClientID %>").val(parseFloat(Balance).toFixed(2));
+                $("#<%=hdnRsPerBox.ClientID %>").val(parseFloat(RSPerBox).toFixed(2));
+                $("#<%=hdnBalance.ClientID %>").val(parseFloat(Balance).toFixed(2));
+               
+            }
+        });
+       
+    </script>
